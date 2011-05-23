@@ -1,0 +1,1139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="mat" content="PG_NOT">
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<meta name="generator" content="MediaWiki 1.15.5">
+		<meta name="keywords" content="Avatar Appearance,AgentCachedTexture,AgentCachedTextureResponse,AgentIsNowWearing,AgentSetAppearance,AgentWearablesRequest,AgentWearablesUpdate,AvatarAppearance,Avatar deformation,Coding standard,Documentation">
+		<link rel="shortcut icon" href="http://wiki.secondlife.com/favicon.ico">
+		<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.secondlife.com/w/opensearch_desc.php" title="Second Life Wiki (en)">
+		<link title="Creative Commons" type="application/rdf+xml" href="http://wiki.secondlife.com/w/index.php?title=Avatar_Appearance&amp;action=creativecommons" rel="meta">
+		<link rel="copyright" href="http://wiki.secondlife.com/wiki/Project:Terms_of_Service">
+		<link rel="alternate" type="application/rss+xml" title="Second Life Wiki RSS feed" href="http://wiki.secondlife.com/w/index.php?title=Special:RecentChanges&amp;feed=rss">
+		<link rel="alternate" type="application/atom+xml" title="Second Life Wiki Atom feed" href="http://wiki.secondlife.com/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+		<title>Avatar Appearance - Second Life Wiki</title>
+		<link rel="stylesheet" href="Avatar_Appearance_files/shared.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="Avatar_Appearance_files/commonPrint.css" type="text/css" media="print">
+		<link rel="stylesheet" href="Avatar_Appearance_files/main.css" type="text/css" media="screen">
+		<!--[if lt IE 5.5000]><link rel="stylesheet" href="http://d1yjxggot69855.cloudfront.net/skins/monobook/IE50Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 5.5000]><link rel="stylesheet" href="http://d1yjxggot69855.cloudfront.net/skins/monobook/IE55Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 6]><link rel="stylesheet" href="http://d1yjxggot69855.cloudfront.net/skins/monobook/IE60Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="http://d1yjxggot69855.cloudfront.net/skins/monobook/IE70Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<link rel="stylesheet" href="Avatar_Appearance_files/index.css" type="text/css">
+		<link rel="stylesheet" href="Avatar_Appearance_files/index_004.css" type="text/css" media="print">
+		<link rel="stylesheet" href="Avatar_Appearance_files/index_002.css" type="text/css">
+		<link rel="stylesheet" href="Avatar_Appearance_files/index_003.css" type="text/css">
+		<!--[if lt IE 7]><script type="text/javascript" src="http://d1yjxggot69855.cloudfront.net/skins/common/IEFixes.js?207"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script type="text/javascript">/*<![CDATA[*/
+		var skin = "monobook";
+		var stylepath = "http://d1yjxggot69855.cloudfront.net/skins";
+		var wgArticlePath = "/wiki/$1";
+		var wgScriptPath = "/w";
+		var wgScript = "/w/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://wiki.secondlife.com";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "Avatar_Appearance";
+		var wgTitle = "Avatar Appearance";
+		var wgAction = "view";
+		var wgArticleId = "2872";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "en";
+		var wgContentLanguage = "en";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 1017032;
+		var wgVersion = "1.15.5";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgMWSuggestTemplate = "http://wiki.secondlife.com/w/api.php?action=opensearch\x26search={searchTerms}\x26namespace={namespaces}";
+		var wgDBname = "lindenlab1";
+		var wgSearchNamespaces = [0, 100];
+		var wgMWSuggestMessages = ["with suggestions", "no suggestions"];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		/*]]>*/</script>
+
+		<script type="text/javascript" src="Avatar_Appearance_files/wikibits.js"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+		<script type="text/javascript" src="Avatar_Appearance_files/ajax.js"></script>
+		<script type="text/javascript" src="Avatar_Appearance_files/mwsuggest.js"></script>
+		<script type="text/javascript" src="Avatar_Appearance_files/index.js"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Avatar_Appearance skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+		<div id="siteNotice"><div style="border: 1px solid #222; background-color: #eee; padding: 5px; margin: 5px; width: 600px; margin-left: auto; margin-right: auto;"><b>Please excuse the dust!</b>  <b>We're cleaning up and reorganizing the Second Life wiki.</b></div>
+</div>		<h1 id="firstHeading" class="firstHeading">Avatar Appearance</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From Second Life Wiki</h3>
+			<div id="contentSub"><a href="http://wiki.secondlife.com/wiki/Main_Page" title="Main Page">Second Life Wiki</a> &gt; <a href="http://wiki.secondlife.com/wiki/Open_Source_Portal" title="Open Source Portal">Open Source</a> &gt; Avatar Appearance</div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<div class="hf-nsheader"></div><div class="hf-header"></div><table style="border: 1px solid rgb(255, 192, 0); background: none repeat scroll 0% 0% rgb(255, 255, 170); color: black; width: 75%; min-width: 400px; margin-left: 20px; margin-right: 20px;">
+    <tbody><tr>
+      <td valign="top" width="32"><img alt="" src="Avatar_Appearance_files/32px-KBcaution.png" border="0" height="27" width="32"></td>
+      <td><b>Important:</b> <b><a href="http://bit.ly/aczoWU" class="external text" title="http://bit.ly/aczoWU" rel="nofollow">See this if you're looking for general Appearance Editor help for Viewer 2.1.</a></b></td>
+    </tr>
+</tbody></table>
+<div class="floatright"><div class="navbox" style="width: 200px">
+<center><a href="http://wiki.secondlife.com/wiki/Open_Source_Portal" title="Open Source Portal">Open Source Portal</a></center>
+<ul><li><b><a href="http://wiki.secondlife.com/wiki/Documentation" title="Documentation">Learning the System</a></b>
+<ul><li> <a href="http://wiki.secondlife.com/wiki/Features" title="Features">Features Specifications and Documentation</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Viewer_architecture" title="Viewer architecture" class="mw-redirect">Viewer Architecture</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Viewer_source" title="Viewer source">Viewer Source Code</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Server_architecture" title="Server architecture">Server Architecture</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Protocol" title="Protocol">Protocol Documentation</a>
+<ul><li> Avatar Appearance
+</li></ul>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Third_Party_Libraries" title="Third Party Libraries">Third Party Libraries</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Extended_FAQ" title="Extended FAQ" class="mw-redirect">Extended FAQ</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Unofficial_Licensing_FAQ" title="Unofficial Licensing FAQ">Unofficial Licensing FAQ</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Coding_standard" title="Coding standard">Coding Standard</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Viewer_Roadmap" title="Viewer Roadmap" class="mw-redirect">Viewer Roadmap</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/Category:Glossary" title="Category:Glossary">Glossary</a>
+</li></ul>
+</li><li><a href="http://wiki.secondlife.com/wiki/Open_Source_Portal#Ways_to_Participate" title="Open Source Portal">Ways to Participate</a>
+</li></ul>
+</div></div>
+<p><br>
+For a good introduction to the elements of 3D character graphics, 
+including meshes, morphs, bones, rendering, quaternions, and more see <a href="http://www.gup.uni-linz.ac.at/%7Egk/Diplom/CART-Martin.pdf" class="external text" title="http://www.gup.uni-linz.ac.at/~gk/Diplom/CART-Martin.pdf" rel="nofollow">Martin Garstenauer's thesis</a>.<br><br>
+</p>
+<table id="toc" class="toc" summary="Contents"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1"><a href="#Appearance_Components"><span class="tocnumber">1</span> <span class="toctext">Appearance Components</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Wearables"><span class="tocnumber">1.1</span> <span class="toctext">Wearables</span></a></li>
+<li class="toclevel-2"><a href="#Attachments"><span class="tocnumber">1.2</span> <span class="toctext">Attachments</span></a></li>
+<li class="toclevel-2"><a href="#Animations"><span class="tocnumber">1.3</span> <span class="toctext">Animations</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Packets"><span class="tocnumber">2</span> <span class="toctext">Packets</span></a></li>
+<li class="toclevel-1"><a href="#Linden_avatar_definition_file"><span class="tocnumber">3</span> <span class="toctext">Linden avatar definition file</span></a>
+<ul>
+<li class="toclevel-2"><a href="#File_structure"><span class="tocnumber">3.1</span> <span class="toctext">File structure</span></a></li>
+<li class="toclevel-2"><a href="#Parameter_detail"><span class="tocnumber">3.2</span> <span class="toctext">Parameter detail</span></a></li>
+<li class="toclevel-2"><a href="#Loading_the_file"><span class="tocnumber">3.3</span> <span class="toctext">Loading the file</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#LLVisualParam"><span class="tocnumber">4</span> <span class="toctext">LLVisualParam</span></a></li>
+<li class="toclevel-1"><a href="#Linden_skeleton_definition_file"><span class="tocnumber">5</span> <span class="toctext">Linden skeleton definition file</span></a>
+<ul>
+<li class="toclevel-2"><a href="#File_structure_2"><span class="tocnumber">5.1</span> <span class="toctext">File structure</span></a></li>
+<li class="toclevel-2"><a href="#Loading_the_file_2"><span class="tocnumber">5.2</span> <span class="toctext">Loading the file</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Linden_binary_mesh_file"><span class="tocnumber">6</span> <span class="toctext">Linden binary mesh file</span></a>
+<ul>
+<li class="toclevel-2"><a href="#File_structure_3"><span class="tocnumber">6.1</span> <span class="toctext">File structure</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Base_mesh"><span class="tocnumber">6.1.1</span> <span class="toctext">Base mesh</span></a></li>
+<li class="toclevel-3"><a href="#Level_Of_Detail_.28LOD.29_mesh"><span class="tocnumber">6.1.2</span> <span class="toctext">Level Of Detail (LOD) mesh</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Loading_the_file_3"><span class="tocnumber">6.2</span> <span class="toctext">Loading the file</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Linden_wearable_definition_file"><span class="tocnumber">7</span> <span class="toctext">Linden wearable definition file</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Source_References"><span class="tocnumber">7.1</span> <span class="toctext">Source References</span></a></li>
+<li class="toclevel-2"><a href="#File_Structure_4"><span class="tocnumber">7.2</span> <span class="toctext">File Structure</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></tbody></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Appearance_Components" id="Appearance_Components"></a><h2> <span class="mw-headline"> Appearance Components </span></h2>
+<p>SL Avatar has "wearables" plus "attachments" for static appearance, and "animations".
+</p>
+<a name="Wearables" id="Wearables"></a><h3> <span class="mw-headline"> Wearables </span></h3>
+<p>Wearables encompass both clothing and body parts – represent 
+customizations of the basic avatar mesh via parameterized changes and 
+textures.
+</p><p>Clothing can be taken off, but body parts cannot. Otherwise, they are similar.
+</p><p>Wearables are created by the viewer when appearance is edited and
+ the results are saved; changed parts of appearance (clothing, 
+bodyparts) are saved as new wearables which are uploaded as assets. 
+There is no support for directly importing or exporting wearables.
+</p>
+<a name="Attachments" id="Attachments"></a><h3> <span class="mw-headline"> Attachments </span></h3>
+<p>An "attachment" is an object ("linked set of primitives") which is 
+rooted in the scene graph on an attachment point on an avatar.  They are
+ otherwise the same as other objects in SL, and can contain and execute 
+scripts, inventory, maintain state, etc.
+</p><p>Attachments are heavily used for hair, some parts of clothing 
+(dresses, cuffs) and accessories (jewelery, weapons). Non-humanoid 
+avatars may use attachments to completely obscure the underlying 
+humanoid avatar mesh.
+</p><p>Attachments are never serialized as files on the viewer, and 
+there is no import/export support. Attachments are only transmitted 
+to/from the viewer as ObjectUpdate messages which describe the 
+constantly updating scene graph of the simulation.  Attachments are 
+created/modified using the "build" tools in the viewer; modifications 
+are transmitted from the viewer to the simulator as editing messages. 
+The simulator then broadcasts the changes to other users as 
+ObjectUpdates. When an attachment is saved to inventory, the linked set 
+of prims structure is serialized to a structure that includes script 
+state.
+</p>
+<a name="Animations" id="Animations"></a><h3> <span class="mw-headline"> Animations </span></h3>
+<p>Animations are Poser BVH files. Animations can be added to a scripted
+ object to be played (e.g. a "poseball"), or incorporated into a gesture
+ (a sequence of actions including text, sounds and animations invoked 
+manually or triggered by a keyword). However, animations are often 
+thought of as parts of avatars when they are controlled by an attachment
+ to alter the avatar's default animations. 
+</p><p>One common case is as an "Animation Override" script. These are 
+used along with creative animations to deform the skeleton. Sometimes 
+these override only some of the default animations (e.g. directed 
+attention), sometimes everything is overridden. For example, "tinies" 
+are created by folding the skeleton's limbs back on themselves. 
+Non-humanoid avatars often use "meatballs" animations that compress the 
+avatar to such an extent that it can be hidden inside an attachment.  
+See <a href="http://wiki.secondlife.com/wiki/Avatar_deformation" title="Avatar deformation">Avatar deformation</a> for more information.
+</p><p>Animations can be created in third party tools (e.g. Poser, 
+QAvimator) and uploaded via File &gt; Upload Animation (L$10). The 
+animation is added to the inventory, and can then be incorporated into a
+ script or gesture.
+</p>
+<a name="Packets" id="Packets"></a><h2> <span class="mw-headline">Packets</span></h2>
+<ul><li> <a href="http://wiki.secondlife.com/wiki/AgentWearablesRequest" title="AgentWearablesRequest">AgentWearablesRequest</a>
+<ul><li> This is where it starts. The viewer asks the simulator what it is wearing, and an AgentWearablesUpdate packet is returned.
+</li></ul>
+</li><li> <a href="http://wiki.secondlife.com/wiki/AgentWearablesUpdate" title="AgentWearablesUpdate">AgentWearablesUpdate</a>
+<ul><li> A mapping of wearable types to asset IDs and item IDs is 
+returned to the client. There are currently 13 different wearable types 
+and all 13 will always be returned in this packet. If your avatar is not
+ wearing a wearable type the asset ID and item ID for that type will be 
+null IDs (all zeros). The next step is to request an asset transfer for 
+all of the non-null asset IDs and download the wearable assets.
+</li></ul>
+</li><li> <a href="http://wiki.secondlife.com/wiki/AgentIsNowWearing" title="AgentIsNowWearing">AgentIsNowWearing</a>
+<ul><li> Like the AgentWearablesUpdate packet but in the other 
+direction. The viewer sends a list of the 13 wearable types and their 
+associated item IDs, or null if nothing is being worn in that wearable 
+slot. This is typically sent right before AgentSetAppearance.
+</li></ul>
+</li><li> <a href="http://wiki.secondlife.com/wiki/AgentSetAppearance" title="AgentSetAppearance">AgentSetAppearance</a>
+<ul><li> Serves two purposes, to tell the server how our avatar mesh is 
+deformed (with visual parameters) and what textures we are wearing. 
+There are currently 218 VisualParam blocks sent with each 
+AgentSetAppearance describing everything from the color of the avatar 
+eyes to the gender slider. A TextureEntry is also sent that uses the 
+same TextureEntry format objects use, but each "face" is hard-coded to 
+describe a particular texture. This may or may not include baked 
+textures for the five different baked layers (head, upper, lower, eyes, 
+and skirt).
+</li><li>The ParamValue fields do not have parameter IDs associated with
+ them in the packet, as it's assumed all viewers have the same parameter
+ map in the same sequence. The parameters are stored internally as a 
+floating point integer, and are converted to a single byte by inputting 
+the value along with minimum and maximum weights for that parameter to a
+ conversion function.
+</li></ul>
+</li></ul>
+<ul><li> <a href="http://wiki.secondlife.com/wiki/AvatarAppearance" title="AvatarAppearance">AvatarAppearance</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/AgentCachedTexture" title="AgentCachedTexture">AgentCachedTexture</a>
+</li><li> <a href="http://wiki.secondlife.com/wiki/AgentCachedTextureResponse" title="AgentCachedTextureResponse">AgentCachedTextureResponse</a>
+</li></ul>
+<a name="Linden_avatar_definition_file" id="Linden_avatar_definition_file"></a><h2> <span class="mw-headline">Linden avatar definition file</span></h2>
+<p>The parameters affecting avatar appearance are defined in an XML file
+located in the executable at
+</p>
+<dl><dd> SecondLife\character\avatar_lad.xml
+</dd></dl>
+<p>and in the source code at
+</p>
+<dl><dd> linden\indra\newview\character\avatar_lad.xml
+</dd></dl>
+<p><br>
+With a few exceptions
+</p>
+<dl><dd> genepool.xml
+</dd><dd> rouge_alpha.tga
+</dd><dd> underpants_trial_female.tga
+</dd><dd> underpants_trial_male.tga
+</dd><dd> undershirt_trial_female.tga
+</dd><dd> upperbodyfreckles_alpha.tga
+</dd></dl>
+<p>all of the other files in the same directory are referenced by 
+avatar_lad.xml.  These include the mesh files (.llm), the texture files 
+(.tga) and the avatar_skeleton.xml file (see below).
+</p><p>genepool.xml contains parameter sets for wearable types WT_SHAPE,
+ WT_SKIN, WT_HAIR, and WT_EYES for several archetypal avatar 
+definitions.  This file supported the Randomize feature in the 
+appearance editor. The functionality was removed in viewer 1.23, but a 
+vestigial copy of genepool.xml may still be present. You can see the 
+current parameter set for your own avatar by invoking the debug menus 
+(Ctrl-Alt-D) and selecting
+Client-&gt;Character-&gt;Character Tests-&gt;Appearance To XML.  This 
+will create a file
+</p>
+<dl><dd> SecondLife\character\new archetype.xml
+</dd></dl>
+<p>in the same format as genepool.xml.
+</p><p>The avatar definition file affects the appearances on your viewer
+ only.  Any change to the file will not affect how others see the 
+avatars.  You can set value_default="1" for "Express_Tongue_Out" to make
+ the avatars on your viewer give you the raspberries, but no one else 
+will notice.
+</p><p>The interesting thing is that this file defines parameters that can be used in animations.
+</p><p><br>
+</p>
+<a name="File_structure" id="File_structure"></a><h3> <span class="mw-headline">File structure</span></h3>
+<p><b>&lt;?xml version="1.0" encoding="US-ASCII" standalone="yes"?&gt;</b>
+</p><p><b>&lt;linden_avatar version="1.0" wearable_definition_version="22"&gt;</b>
+</p>
+<dl><dd>   <b>&lt;skeleton file_name="avatar_skeleton.xml"&gt;</b>
+<dl><dd>       <b><i>&lt;attachment_point</i> id="1" group="6" name="Chest" joint="mChest"</b>
+</dd><dd>       position="0.15 0 -0.1" rotation="0 90 90" visible_in_first_person="true"
+</dd><dd>       pie_slice="2" hud="true" max_attachment_offset="1.5" <i><b>/&gt;</b></i>
+</dd><dd>       <i><b>&lt;param ... &gt;</b></i>
+<dl><dd>         <b>&lt;param_skeleton&gt;</b>
+<dl><dd>            <b><i>&lt;bone</i> name="mNeck" scale="0 0 .2"</b> offset="0 0 .004" <i><b>/&gt;</b></i>
+</dd></dl>
+</dd><dd>         <b>&lt;/param_skeleton&gt;</b>
+</dd></dl>
+</dd><dd>       <i><b>&lt;/param&gt;</b></i>
+</dd></dl>
+</dd><dd>   <b>&lt;/skeleton&gt;</b>
+</dd></dl>
+<p><br>
+</p>
+<dl><dd>Sets of
+</dd><dd>   <b>&lt;mesh type="hairMesh" lod="0" file_name="avatar_hair.llm"</b>
+</dd><dd>      min_pixel_width="320" min_pixel_area="0.1" <b>&gt;</b>
+<dl><dd>       <i><b>&lt;param ... &gt;</b></i>
+<dl><dd>         <b>&lt;param_morph /&gt;</b>
+</dd><dd>or
+</dd><dd>         <b>&lt;param_morph&gt;</b>
+<dl><dd>             <i><b>&lt;volume_morph</b></i> name="HEAD" scale="-0.008 -0.006 0.015"
+</dd><dd>             pos="0.07 0 -0.07" <i><b>/&gt;</b></i>
+</dd></dl>
+</dd><dd>         <b>&lt;/param_morph&gt;</b>
+</dd></dl>
+</dd><dd>       <i><b>&lt;/param&gt;</b></i>
+</dd></dl>
+</dd><dd>   <b>&lt;/mesh&gt;</b>
+</dd><dd>   <i>&lt;mesh</i> <b>type="hairMesh" lod="1" file_name="avatar_hair_1.llm"</b>
+</dd><dd>    min_pixel_width="160" min_pixel_area="0.1" <b>reference="avatar_hair.llm"</b><i>&gt;</i>
+</dd><dd>   <i>&lt;/mesh&gt;</i>
+</dd></dl>
+<p><br>
+</p>
+<dl><dd>    <b><i>&lt;global_color</i> name="skin_color"<i>&gt;</i></b>
+<dl><dd>      <b>&lt;param ... &gt;</b>
+<dl><dd>         <b>&lt;param_color</b> operation="blend" <b>&gt;</b>
+<dl><dd>             <b><i>&lt;value</i> color="252, 215, 200, 255" <i>/&gt;</i></b>
+</dd></dl>
+</dd><dd>         <b>&lt;/param_color&gt;</b>
+</dd></dl>
+</dd><dd>      <b>&lt;/param&gt;</b>
+</dd></dl>
+</dd><dd>    <i><b>&lt;/global_color&gt;</b></i>
+</dd></dl>
+<p><br>
+</p>
+<dl><dd>    <b><i>&lt;layer_set</i> body_region="head" width="512" height="512"</b>
+</dd><dd>    clear_alpha="false" alpha_tga_file="head_alpha.tga" <i><b>&gt;</b></i>
+</dd></dl>
+<dl><dd><dl><dd>       <b><i>&lt;layer</i> name="head bump definition"</b> render_pass="bump"
+</dd><dd>       global_color="hair_color" fixed_color="128,128,128,255"
+</dd><dd>       write_all_channels="true" <i><b>&gt;</b></i>
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dd><dl><dd>        &lt;texture <b>local_texture="lower_jacket"</b> local_texture_alpha_only="true" /&gt;
+</dd><dd>and if not fixed_color
+</dd><dd>        &lt;texture <b>tga_file="bump_head_base.tga"</b> file_is_mask="FALSE" /&gt;
+</dd></dl>
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dd><dl><dd>        <i>&lt;morph_mask</i> morph_name="Displace_Loose_Upperbody" invert="FALSE" <i>/&gt;</i>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dd><dl><dd>        <i>&lt;param ... &gt;</i>
+<dl><dd>            <b>&lt;param_alpha</b> tga_file="bump_face_wrinkles.tga" skip_if_zero="true"
+</dd><dd>             multiply_blend="false" domain="0" <b>/&gt;</b>
+</dd><dd>or
+</dd><dd>            <b>&lt;param_color</b> operation="multiply" <b>&gt;</b>
+<dl><dd>               <b><i>&lt;value</i> color="0, 0, 0, 0" <i>/&gt;</i></b>
+</dd></dl>
+</dd><dd>            <b>&lt;/param_color&gt;</b>
+</dd></dl>
+</dd><dd>         <i>&lt;/param&gt;</i>
+</dd></dl>
+</dd><dd>      <i><b>&lt;/layer&gt;</b></i>
+</dd></dl>
+</dd><dd>   <i><b>&lt;/layer_set&gt;</b></i>
+</dd></dl>
+<p><br>
+</p>
+<dl><dd>   <b>&lt;driver_parameters&gt;</b>
+<dl><dd>       <i><b>&lt;param ... &gt;</b></i>
+<dl><dd>         <b>&lt;param_driver&gt;</b>
+<dl><dd>            <b><i>&lt;driven</i> id="628"</b> min1="0.1" max1="0.5" max2="1" min2="1" <i><b>/&gt;</b></i>
+</dd></dl>
+</dd><dd>         <b>&lt;/param_driver&gt;</b>
+</dd></dl>
+</dd><dd>       <i><b>&lt;/param&gt;</b></i>
+</dd></dl>
+</dd><dd>   <b>&lt;/driver_parameters&gt;</b>
+</dd></dl>
+<p><b>&lt;/linden_avatar&gt;</b>
+</p><p>where <b>bold</b> text indicates required tags or parameters, standard text
+indicates a tag that can occur zero or one time, <i>italics</i>
+indicates that the tag can be repeated zero or more times, and <i><b>bold italics</b></i> indicates
+that at least one is required but more are possible.
+</p><p>Note that the values shown for parameters here may not be consistent.  They are shown only
+to indicate the value type.
+</p><p><br>
+</p>
+<a name="Parameter_detail" id="Parameter_detail"></a><h3> <span class="mw-headline">Parameter detail</span></h3>
+<p>&lt;param ... &gt; is
+</p>
+<dl><dd>      <b>&lt;param id="32"</b> group="1" name="Male_Skeleton"
+</dd><dd>       value_min="0" value_max="1" value_default="0"
+</dd><dd>       edit_group="shape_body" edit_group_order="1"
+</dd><dd>       label="Skeleton" label_min="Female" label_max="Male"
+</dd><dd>       wearable="shape" clothing_morph="true" sex="male" shared="1"
+</dd><dd>       show_simple="true" simple_percent_min="40" simple_percent_max="100"
+</dd><dd>       camera_distance="2.2" camera_elevation=".1" camera_angle="0" <b>&gt;</b>
+</dd></dl>
+<p><br>
+Parameters are parsed in LLViewerVisualParamInfo::parseXml and 
+LLVisualParamInfo::parseXml and are used by LLViewerVisualParam and 
+LLVisualParam respectively when LLVOAvatar::loadAvatar is called.
+</p><p><br>
+Fields parsed in LLVisualParamInfo are used to describe the meaning of the parameters.
+</p>
+<dl><dt>id -- mID
+</dt><dt>name -- mName
+</dt><dd>default ""
+</dd><dt>group -- mGroup
+</dt><dd>"0" is VISUAL_PARAM_GROUP_TWEAKABLE
+</dd><dd>"1" is VISUAL_PARAM_GROUP_ANIMATABLE
+</dd><dd>default "0"
+</dd><dt>value_min -- mMinWeight
+</dt><dd>default 0.
+</dd><dt>value_max -- mMaxWeight
+</dt><dd>default 1.
+</dd><dt>value_default -- mDefaultWeight
+</dt><dd>default 0.
+</dd><dt>sex -- mSex
+</dt></dl>
+<table>
+<tbody><tr>
+<td> </td><td> </td><td> "both" </td><td> SEX_BOTH
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "male" </td><td> SEX_MALE
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "female" </td><td> SEX_FEMALE
+</td></tr>
+<tr>
+<td> </td><td> </td><td> default </td><td> SEX_BOTH
+</td></tr></tbody></table>
+<dl><dt>label -- mDisplayName
+</dt><dd>default is name
+</dd><dt>label_min -- mMinName
+</dt><dd>default is "Less"
+</dd><dt>label_max -- mMaxName
+</dt><dd>default is "More"
+</dd><dt>shared
+</dt><dd>Used only by mesh params.  Indicates that the param affects more than one mesh
+</dd></dl>
+<p><br>
+Fields parsed in LLViewerVisualParamInfo describe the appearance of the entries on the Edit-&gt;Appearance editing panel.
+</p>
+<dl><dt>wearable -- mWearableType
+</dt></dl>
+<table>
+<tbody><tr>
+<td> </td><td> </td><td> "shape" </td><td>       WT_SHAPE
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "skin"  </td><td>       WT_SKIN
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "hair"  </td><td>       WT_HAIR
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "eyes"  </td><td>       WT_EYES
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "shirt" </td><td>       WT_SHIRT
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "pants" </td><td>       WT_PANTS
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "shoes" </td><td>       WT_SHOES
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "socks" </td><td>       WT_SOCKS
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "jacket"     </td><td>  WT_JACKET
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "gloves"     </td><td>  WT_GLOVES
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "undershirt" </td><td>  WT_UNDERSHIRT
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "underpants" </td><td>  WT_UNDERPANTS
+</td></tr>
+<tr>
+<td> </td><td> </td><td> "skirt"      </td><td>  WT_SKIRT
+</td></tr>
+<tr>
+<td> </td><td> </td><td> default      </td><td>  WT_INVALID
+</td></tr></tbody></table>
+<dl><dt>edit_group -- mEditGroup
+</dt><dd>default ""
+</dd><dt>edit_group_order  -- mEditGroupDisplayOrder 
+</dt><dd>By default, value 0, parameters are displayed in the order in 
+which they appear in the xml file.  "edit_group_order" overriddes this.
+</dd></dl>
+<p><br>
+Optional camera offsets from the current joint center.  Used for generating "hints" (thumbnails).
+</p>
+<dl><dt>camera_distance -- mCamDist
+</dt><dd>default 0.5
+</dd><dt>camera_angle -- mCamAngle
+</dt><dd>default 0.
+</dd><dt>camera_elevation -- mCamElevation
+</dt><dd>default 0.
+</dd></dl>
+<p><br>
+</p>
+<dl><dt>show_simple -- mShowSimple&nbsp;</dt><dd> value is ignored
+</dd><dd>default FALSE
+</dd><dt>simple_percent_min -- mSimpleMin&nbsp;</dt><dd> value is ignored
+</dd><dd>default 0.
+</dd><dt>simple_percent_max -- mSimpleMax&nbsp;</dt><dd> value is ignored
+</dd><dd>default 100.
+</dd></dl>
+<p><br>
+</p>
+<a name="Loading_the_file" id="Loading_the_file"></a><h3> <span class="mw-headline">Loading the file</span></h3>
+<p>The file is parsed in LLVOAvatar::initClass() primarily by calls to 
+LLVOAvatarInfo.  Both classes are defined in 
+indra\newview\llvoavatar.h(.cpp).
+There is one method for each of the major XML nodes
+</p>
+<dl><dd>LLVOAvatarInfo::parseXmlSkeletonNode
+</dd><dd>LLVOAvatarInfo::parseXmlMeshNodes
+</dd><dd>LLVOAvatarInfo::parseXmlColorNodes
+</dd><dd>LLVOAvatarInfo::parseXmlLayerNodes
+</dd><dd>LLVOAvatarInfo::parseXmlDriverNodes
+</dd></dl>
+<p>This data is then used to create instances of LLVOAvatar in LLVOAvatar::loadAvatar()
+which invokes LLVOAvatar::loadSkeletonNode() and LLVOAvatar::loadMeshNodes().
+</p>
+<a name="LLVisualParam" id="LLVisualParam"></a><h2> <span class="mw-headline">LLVisualParam</span></h2>
+<p>The avatar visual parameters are divided into those that define the 
+avatar's appearance and those that are used in animations.  
+Theoretically, they all could be used for animations, but the animations
+ would have to start and end at the settings defined for the avatar 
+rather than at the default values.
+</p><p>The group field of the &lt;param&gt; tag identifies those that are directly set in Edit-&gt;Appearance and sent in <a href="http://wiki.secondlife.com/wiki/AgentSetAppearance" title="AgentSetAppearance">AgentSetAppearance</a>
+ messages as VISUAL_PARAM_GROUP_TWEAKABLE.  The rest are identified as 
+VISUAL_PARAM_GROUP_ANIMATABLE, but this is a bit misleading because it 
+includes all of the driven parameters defined in the 
+&lt;driver_parameters&gt; stanza.  These are set by the driver 
+parameters which are themselves directly tweakable.
+</p><p>Those that are not directly or indirectly tweakable include the emotes
+</p>
+<dl><dd><ul><li> 300  Express_Closed_Mouth
+</li><li> 301  Express_Tongue_Out
+</li><li> 302  Express_Surprise_Emote
+</li><li> 303  Express_Wink_Emote
+</li><li> 304  Express_Embarrassed_Emote
+</li><li> 305  Express_Shrug_Emote
+</li><li> 306  Express_Kiss
+</li><li> 307  Express_Bored_Emote
+</li><li> 308  Express_Repulsed_Emote
+</li><li> 309  Express_Disdain
+</li><li> 310  Express_Afraid_Emote
+</li><li> 311  Express_Worry_Emote
+</li><li> 312  Express_Cry_Emote
+</li><li> 313  Express_Sad_Emote
+</li><li> 314  Express_Anger_Emote
+</li><li> 315  Express_Frown
+</li><li> 316  Express_Laugh_Emote
+</li><li> 317  Express_Toothsmile
+</li><li> 318  Express_Smile
+</li><li> 632  Express_Open_Mouth
+</li></ul>
+</dd></dl>
+<p>the hand morphs
+</p>
+<dl><dd><ul><li> 101   Hands_Relaxed
+</li><li> 102   Hands_Point
+</li><li> 103   Hands_Fist
+</li><li> 666   Hands_Relaxed_L
+</li><li> 667   Hands_Point_L
+</li><li> 668   Hands_Fist_L
+</li><li> 669   Hands_Relaxed_R
+</li><li> 670   Hands_Point_R
+</li><li> 671   Hands_Fist_R
+</li><li> 672   Hands_Typing
+</li><li> 766   Hands_Salute_R
+</li><li> 791   Hands_Peace_R
+</li><li> 792   Hands_Spread_R
+</li></ul>
+</dd></dl>
+<p>and blinking eyes
+</p>
+<dl><dd><ul><li> 58   Blink_Left
+</li><li> 59   Blink_Right
+</li></ul>
+</dd></dl>
+<p><br>
+The remaining visual params include a few useful for animations
+</p>
+<dl><dd><ul><li> 51   Furrowed_Eyebrows
+</li><li> 53   Surprised_Eyebrows
+</li><li> 54   Worried_Eyebrows
+</li><li> 55   Frown_Mouth
+</li><li> 57   Smile_Mouth
+</li></ul>
+</dd></dl>
+<p>and a couple that seem to have been abandoned
+</p>
+<dl><dd><ul><li> 41   Old
+</li><li> 128   Wrinkles
+</li></ul>
+</dd></dl>
+<p><br>
+</p>
+<a name="Linden_skeleton_definition_file" id="Linden_skeleton_definition_file"></a><h2> <span class="mw-headline">Linden skeleton definition file</span></h2>
+<p>The skeletal structure is defined in an XML file located in the executable at
+</p>
+<dl><dd> SecondLife\character\avatar_skeleton.xml
+</dd></dl>
+<p>and in the source code at
+</p>
+<dl><dd> linden\indra\newview\character\avatar_skeleton.xml
+</dd></dl>
+<p>It is referenced through the avatar definition file (see above) and can be
+considered to be part of the avatar definition.
+</p><p><br>
+</p>
+<a name="File_structure_2" id="File_structure_2"></a><h3> <span class="mw-headline">File structure</span></h3>
+<p><b>&lt;?xml version="1.0" encoding="US-ASCII" standalone="yes"?&gt;</b>
+</p><p><b>&lt;linden_skeleton version="1.0" num_bones="46" num_collision_volumes="19"&gt;</b>
+</p>
+<dl><dd>   <b>&lt;bone name="mPelvis" pos="0.000 0.000 1.067" rot="0.000000 0.000000 0.000000"</b>
+</dd><dd>   <b>scale="1.000 1.000 1.000" pivot="0.000000 0.000000 1.067015"&gt;</b>
+<dl><dd>       &lt;collision_volume <b>name="PELVIS" pos = "-0.01 0 -0.02"</b>
+</dd><dd>       <b>rot="0.000000 8.00000 0.000000" scale="0.12 0.16 0.17"</b>/&gt;
+</dd><dd>       <i>&lt;bone ...&gt;</i>
+</dd><dd>	 <i>&lt;/bone&gt;</i>
+</dd></dl>
+</dd><dd>    <b>&lt;/bone&gt;</b>
+</dd></dl>
+<p><b>&lt;/linden_skeleton&gt;</b>
+</p><p>where <b>bold</b> text indicates required tags or parameters, standard text
+indicates a tag that can occur zero or one time, and <i>italics</i>
+indicates that the tag can be repeated zero or more times.
+</p><p>The &lt;bone ...&gt; tag above is to indicate that the structure is recursive.
+</p><p>The "46" for num_bones is actually a typo in the file.  There are only 26 bones defined.
+</p><p><br>
+</p>
+<a name="Loading_the_file_2" id="Loading_the_file_2"></a><h3> <span class="mw-headline">Loading the file</span></h3>
+<p>The file is parsed in LLVOAvatar::initClass() using 
+LLVOAvatarSkeletonInfo::parseXml. Both classes are defined in 
+indra\newview\llvoavatar.h(.cpp).
+</p><p>This data is then used to create instances of LLVOAvatar in LLVOAvatar::loadAvatar()
+which invokes LLVOAvatar::buildSkeleton().  A special-purpose "screen" joint named "mScreen" is also created.
+</p><p><br>
+</p>
+<a name="Linden_binary_mesh_file" id="Linden_binary_mesh_file"></a><h2> <span class="mw-headline">Linden binary mesh file</span></h2>
+<p>Meshes are defined in binary files located in the executable at
+</p>
+<dl><dd> SecondLife\character\*.llm
+</dd></dl>
+<p>and in the source code at
+</p>
+<dl><dd> linden\indra\newview\character\*.llm
+</dd></dl>
+<p>They are referenced through the avatar definition file (see above) and can be
+considered to be part of the avatar definition.
+</p><p>The morphName in the binary mesh file matches the name field of 
+the visual params with &lt;param_morph&gt; tags in the &lt;mesh&gt; 
+stanzas.  There are a few morphs defined in the mesh files that are not 
+used by the avatar definition file
+</p>
+<dl><dd><ul><li> Blink_Both
+</li><li> Fingernails_Long
+</li><li> Wide_Lips
+</li></ul>
+</dd></dl>
+<p><br>
+There are two types of mesh files:  the base mesh definition and the 
+level of detail (LOD) mesh definition, which always references a base 
+mesh definition file.  LOD meshes are used to simplify the rendering 
+when the avatar is distant from the camera.  There are several LOD 
+meshes with progressively decreasing resolution.
+</p><p>The vertex information referenced by the LOD meshes is stored at the beginning of the base mesh vertex information.
+</p><p><br>
+</p>
+<a name="File_structure_3" id="File_structure_3"></a><h3> <span class="mw-headline">File structure</span></h3>
+<a name="Base_mesh" id="Base_mesh"></a><h4> <span class="mw-headline">Base mesh</span></h4>
+<dl><dd>char[24] "Linden Binary Mesh 1.0"
+</dd><dd>U8 hasWeights
+</dd><dd>U8 hasDetailTexCoords
+</dd><dd>LLVector3 position
+</dd><dd>LLVector3 rotationAngles
+</dd><dd>U8 rotationOrder (ignored, set to 0)
+</dd><dd>LLVector3 scale
+</dd><dd>U16 numVertices
+</dd><dd>LLVector3[ numVertices ] baseCoords
+</dd><dd>LLVector3[ numVertices ] baseNormals
+</dd><dd>LLVector3[ numVertices ] baseBinormals
+</dd><dd>LLVector2[ numVertices ] texCoords
+</dd><dd>if (hasDetailTexCoords)
+<dl><dd>LLVector2[ numVertices ] detailTexCoords
+</dd></dl>
+</dd><dd>if (hasWeights)
+<dl><dd>F32[ numVertices ] weights
+</dd></dl>
+</dd><dd>U16 numFaces
+</dd><dd>struct faces[ numFaces ]
+</dd><dd>{
+<dl><dd>S16[3] face
+</dd></dl>
+</dd><dd>}
+</dd><dd>if ( hasWeights )
+</dd><dd>{
+<dl><dd>U16 numSkinJoints
+</dd><dd>struct skinJoints[ numSkinJoints ]
+</dd><dd>{
+<dl><dd>char[64] jointName
+</dd></dl>
+</dd><dd>}
+</dd></dl>
+</dd><dd>}
+</dd><dd>struct morph []
+</dd><dd>{
+<dl><dd>char[64] morphName
+</dd><dd>S32 numVertices
+</dd><dd>struct vertices[ numVertices ]
+</dd><dd>{
+<dl><dd>U32 vertexIndex
+</dd><dd>LLVector3 coord
+</dd><dd>LLVector3 normal
+</dd><dd>LLVector3 binormal
+</dd><dd>LLVector2 texCoord
+</dd></dl>
+</dd><dd>}
+</dd></dl>
+</dd><dd>}
+</dd><dd>char[64] "End Morphs"
+</dd><dd>S32 numRemaps (or EOF)
+</dd><dd>struct vertexRemap[ numRemaps ]
+</dd><dd>{
+<dl><dd>S32 remapSource
+</dd><dd>S32 remapDestination
+</dd></dl>
+</dd><dd>}
+</dd></dl>
+<a name="Level_Of_Detail_.28LOD.29_mesh" id="Level_Of_Detail_.28LOD.29_mesh"></a><h4> <span class="mw-headline">Level Of Detail (LOD) mesh</span></h4>
+<dl><dd>char[24] "Linden Binary Mesh 1.0"
+</dd><dd>U8 hasWeights
+</dd><dd>U8 hasDetailTexCoords
+</dd><dd>LLVector3 position
+</dd><dd>LLVector3 rotationAngles
+</dd><dd>U8 rotationOrder (ignored, set to 0)
+</dd><dd>LLVector3 scale
+</dd><dd>U16 numFaces
+</dd><dd>struct faces[ numFaces ]
+</dd><dd>{
+<dl><dd>S16[3] face
+</dd></dl>
+</dd><dd>}
+</dd></dl>
+<p>where LLVector2 and LLVector3 are 2 and 3 floats respectively, and 
+all numbers are little endian.  Integers are 8, 16, or 32 bits signed 
+(S) or unsigned (U).
+</p><p>The LOD .llm files actually contain fields for (if hasWeights) 
+numSkinJoints set to zero, char[64] "End Morphs", and numRemaps set to 
+zero, but these are not read by the viewer.
+</p><p>Each weight actually contains two pieces of information.  The 
+number to the left of the decimal point is the index of the joint and 
+also implicitly indexes to the following joint.  The actual weight is to
+ the right of the decimal point and interpolates between these two 
+joints.  The index is into an "expanded" list of joints, not just a 
+linear array of the joints as defined in the skeleton file.  In 
+particular, any joint that has more than one child will be repeated in 
+the list for each of its children.
+</p>
+<a name="Loading_the_file_3" id="Loading_the_file_3"></a><h3> <span class="mw-headline">Loading the file</span></h3>
+<p>This data is used to create instances of LLVOAvatar in 
+LLVOAvatar::loadAvatar()
+through LLVOAvatar::loadMeshNodes, LLPolyMesh::getMesh, 
+LLPolyMeshSharedData::loadMesh, and LLPolyMorphData::loadBinary.  These 
+are found in indra\newview\llvoavatar.h(.cpp), 
+indra\newview\llpolymesh.h(.cpp), and indra\newview\llpolymorph.h(.cpp).
+</p><p><br>
+</p>
+<a name="Linden_wearable_definition_file" id="Linden_wearable_definition_file"></a><h2> <span class="mw-headline"> Linden wearable definition file </span></h2>
+<p>The format is used for client/server communication - wearable assets 
+are downloaded to cache/uploaded on creation. No import/export ability 
+currently exists, although wearables are manipulated as files both on 
+the viewer and server.
+</p>
+<a name="Source_References" id="Source_References"></a><h3> <span class="mw-headline"> Source References </span></h3>
+<ul><li> <code>newview/llwearable.h</code>
+<ul><li> <code>enum EWearableType</code>
+</li></ul>
+</li><li> <code>newview/llwearable.cpp</code>
+<ul><li> <code>LLWearable::importFile</code> – parses assets when "worn" from inventory, after download to cache
+</li><li> <code>LLWearable::exportFile</code> – called by <code>LLWearable::saveNewAsset</code> when created, does upload to asset system
+</li></ul>
+</li><li> <code>newview/llvoavatardefines.h</code>
+<ul><li> <code>enum ETextureIndex</code>
+</li></ul>
+</li></ul>
+<a name="File_Structure_4" id="File_Structure_4"></a><h3> <span class="mw-headline"> File Structure </span></h3>
+<p>Details:
+</p>
+<ul><li> The file is line-oriented. UNIX line endings (LF 0x0A) are expected.
+</li><li> File encoding for strings is implicitly UTF-8. No byte-order mark is allowed.
+</li><li> Whitespace is used as delimiters. Spaces (0x20) and tabs (0x09) are considered whitespace, and any number may be used.
+</li></ul>
+<p>The file consists of the following blocks, which must occur in the specified order:
+</p>
+<ul><li> Format/Version
+</li><li> Name
+</li><li> Description
+</li><li> Permissions
+</li><li> Sale Info
+</li><li> Wearable type
+</li><li> Parameters
+</li><li> Textures
+</li></ul>
+<p><b>Format/Version</b>
+</p><p>The string <code>LLWearable version</code> followed by the version number (currently <code>22</code>)
+</p><p>Example:
+</p>
+<pre>LLWearable version 22
+</pre>
+<p><b>Name</b>
+</p><p>A single line string, terminated with a UNIX newline (LF 0x0A). 
+Maximum length is 2047 bytes, not counting the newline. Encoding is 
+UTF-8. A blank line is used to indicate the absence of a name.
+</p><p>Example:
+</p>
+<pre>Space Cadet Shirt
+</pre>
+<p><b>Description</b>
+</p><p>A single line string, terminated with a UNIX newline (LF 0x0A). 
+Maximum length is 2047 bytes, not counting the newline. Encoding is 
+UTF-8. A blank line is used to indicate the absence of a description.
+</p><p>Example:
+</p>
+<pre>This is my awesome shirt!
+</pre>
+<p><b>Permissions block</b>
+</p>
+<ul><li> First line: The token <code>permissions</code> followed by the permission block version <code>0</code>
+</li><li> Second line: open brace <code>{</code>
+</li><li> A sequence of permission name/value pairs, each on its own line
+</li><li> Final line: close brace <code>}</code>
+</li></ul>
+<p>The permission name/value pairs are:
+</p>
+<ul><li> <code>base_mask</code>, with 8-digit hexadecimal value
+</li><li> <code>owner_mask</code>, with 8-digit hexadecimal value
+</li><li> <code>group_mask</code>, with 8-digit hexadecimal value
+</li><li> <code>everyone_mask</code>, with 8-digit hexadecimal value
+</li><li> <code>next_owner_mask</code>, with 8-digit hexadecimal value
+</li><li> <code>creator_id</code>, with agent UUID in hexadecimal 8-4-4-4-12 format
+</li><li> <code>owner_id</code>, with agent UUID in hexadecimal 8-4-4-4-12 format
+</li><li> <code>last_owner_id</code>, with agent UUID in hexadecimal 8-4-4-4-12 format
+</li><li> <code>group_id</code>, with group UUID in hexadecimal 8-4-4-4-12 format
+</li><li> <code>group_owned</code>, with <code>0</code> (false) or <code>1</code> (true) flag
+</li></ul>
+<p>If a name/value is missing, a default value is assumed. For maximum 
+compatibility, everything should be explicitly specified except <code>group_owned</code> when false.
+</p><p>Flags are defined in <code>llinventory/llpermissionsflags.h</code>:
+</p>
+<ul><li> <code>PERM_TRANSFER</code> = 0x00002000
+</li><li> <code>PERM_MODIFY</code> = 0x00004000
+</li><li> <code>PERM_COPY</code> = 0x00008000
+</li><li> <code>PERM_MOVE</code> = 0x00080000
+</li></ul>
+<p>Common masks are:
+</p>
+<ul><li> <code>PERM_NONE</code> 0x00000000
+</li><li> <code>PERM_ALL</code> 0x7FFFFFFF
+</li></ul>
+<p>And common values are:
+</p>
+<ul><li> no modify: <code>PERM_ALL &amp; ~PERM_MODIFY</code>                  = 0x7fffbfff
+</li><li> no copy:    <code>PERM_ALL &amp; ~PERM_COPY</code>                    = 0x7fff7fff
+</li><li> no modify or copy:                                  = 0x7fff3fff
+</li><li> no transfer:  <code>PERM_ALL &amp; ~PERM_TRANSFER</code>              = 0x7fffdfff
+</li><li> no modify, no transfer                              = 0x7fff9fff
+</li></ul>
+<p><br>
+Example:
+</p>
+<pre>       permissions 0
+       {
+               base_mask       7fffffff
+               owner_mask      7fffffff
+               group_mask      00000000
+               everyone_mask   7fffbfff
+               next_owner_mask 7fffffff
+               creator_id      d929385f-41e3-4a34-a04e-f1fc39f24f12
+               owner_id        ff9a71eb-7414-4bf8-866e-a70ddeb7c3cf
+               last_owner_id   ff9a71eb-7414-4bf8-866e-a70ddeb7c3cf
+               group_id        00000000-0000-0000-0000-000000000000
+       }
+</pre>
+<p><b>Sale Info block</b>
+</p>
+<ul><li> First line: The token <code>sale_info</code> followed by the sale_info block version <code>0</code>
+</li><li> Second line: open brace <code>{</code>
+</li><li> A sequence of sale info name/value pairs, each on its own line
+</li><li> Final line: close brace <code>}</code>
+</li></ul>
+<p>The sale info name/value pairs are:
+</p>
+<ul><li> <code>sale_type</code>: one of:
+<ul><li> <code>not</code> - not for sale
+</li><li> <code>orig</code> - the original is purchased
+</li><li> <code>copy</code> - a copy is purchased
+</li><li> <code>cntn</code> - the content is purchased
+</li></ul>
+</li><li> <code>sale_price</code> - price in L$
+</li></ul>
+<p>Example:
+</p>
+<pre>       sale_info       0
+       {
+               sale_type       not
+               sale_price      10
+       }
+</pre>
+<p><b>Wearable Type</b>
+</p>
+<ul><li> A single line with the token <code>type</code> followed by the wearable type as a decimal integer
+</li></ul>
+<p>The type is defined in the <code>EWearableType</code> enumeration in <code>newview/llwearable.h</code>:
+</p>
+<ul><li> Bodyparts
+<ul><li> <code>WT_SHAPE</code> = 0
+</li><li> <code>WT_SKIN</code> = 1
+</li><li> <code>WT_HAIR</code> = 2
+</li><li> <code>WT_EYES</code> = 3
+</li></ul>
+</li><li> Clothing
+<ul><li> <code>WT_SHIRT</code> = 4
+</li><li> <code>WT_PANTS</code> = 5
+</li><li> <code>WT_SHOES</code> = 6
+</li><li> <code>WT_SOCKS</code> = 7
+</li><li> <code>WT_JACKET</code>   = 8
+</li><li> <code>WT_GLOVES</code>   = 9
+</li><li> <code>WT_UNDERSHIRT</code> = 10
+</li><li> <code>WT_UNDERPANTS</code> = 11
+</li><li> <code>WT_SKIRT</code> = 12
+</li></ul>
+</li></ul>
+<p><br>
+Example:
+</p>
+<pre>type 4
+</pre>
+<p><b>Parameters</b> 
+</p>
+<ul><li> A line with the token <code>parameters</code> followed by the number of parameter ID/value pairs as a decimal integer
+</li><li> A sequence of parameter/ID value pairs, each on its own line
+<ul><li> Parameter ID from the <a href="#Linden_avatar_definition_file" title="">#Linden avatar definition file</a>, a decimal integer
+</li><li> Parameter value (or weight) is a decimal floating point value
+</li></ul>
+</li></ul>
+<p>Example:
+</p>
+<pre>parameters 10
+781 1
+800 .92
+801 1
+802 1
+803 1
+804 1
+805 1
+828 .18
+840 0
+868 .27
+</pre>
+<p><br>
+<b>Texture</b> 
+</p>
+<ul><li> A line with the token <code>textures</code> followed by the number of texture index/ID pairs as a decimal integer
+</li><li> A sequence of texture index/ID pairs, each on its own line
+<ul><li> Texture index is defined in the <code>ETextureIndex</code> enumeration in <code>newview/llvoavatardefines.h</code>
+</li><li> Texture ID is the texture's UUID in hexadecimal 8-4-4-4-12 format
+</li></ul>
+</li></ul>
+<p>Texture indexes:
+</p>
+<ul><li> <code>TEX_HEAD_BODYPAINT</code>   =  0
+</li><li> <code>TEX_UPPER_SHIRT</code>      =  1
+</li><li> <code>TEX_LOWER_PANTS</code>      =  2
+</li><li> <code>TEX_EYES_IRIS</code>        =  3
+</li><li> <code>TEX_HAIR</code>             =  4
+</li><li> <code>TEX_UPPER_BODYPAINT</code>  =  5
+</li><li> <code>TEX_LOWER_BODYPAINT</code>  =  6
+</li><li> <code>TEX_LOWER_SHOES</code>      =  7
+</li><li> <code>TEX_HEAD_BAKED</code>       =  8  (* See below)
+</li><li> <code>TEX_UPPER_BAKED</code>      =  9  (* See below)
+</li><li> <code>TEX_LOWER_BAKED</code>      = 10  (* See below)
+</li><li> <code>TEX_EYES_BAKED</code>       = 11  (* See below)
+</li><li> <code>TEX_LOWER_SOCKS</code>      = 12
+</li><li> <code>TEX_UPPER_JACKET</code>     = 13
+</li><li> <code>TEX_LOWER_JACKET</code>     = 14
+</li><li> <code>TEX_UPPER_GLOVES</code>     = 15
+</li><li> <code>TEX_UPPER_UNDERSHIRT</code> = 16
+</li><li> <code>TEX_LOWER_UNDERPANTS</code> = 17
+</li><li> <code>TEX_SKIRT</code>            = 18
+</li><li> <code>TEX_SKIRT_BAKED</code>      = 19  (* See below)
+</li><li> <code>TEX_HAIR_BAKED</code>       = 20  (* See below)
+</li></ul>
+<p><i>* When the avatar changes a wearable, the simulator requests that 
+the viewer rebake the *_BAKED textures; these are then uploaded as new 
+temporary assets to the system so that the individual assets do not need
+ to be downloaded. The *_BAKED textures are not referenced by wearables.</i>
+</p><p>Example:
+</p>
+<pre>textures 1
+1 08115557-ad4d-09ed-6b39-2ffc1f2b58b2
+</pre>
+<!-- 
+NewPP limit report
+Preprocessor node count: 194/1000000
+Post-expand include size: 2860/2097152 bytes
+Template argument size: 560/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key lindenlab1-mw_:pcache:idhash:2872-0!1!0!!en!2!edit=0 and timestamp 20110521185350 -->
+<div class="hf-footer"></div><div class="hf-nsfooter"></div><div class="printfooter">
+Retrieved from "<a href="http://wiki.secondlife.com/wiki/Avatar_Appearance">http://wiki.secondlife.com/wiki/Avatar_Appearance</a>"</div>
+			<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://wiki.secondlife.com/wiki/Special:Categories" title="Special:Categories">Categories</a>: <span dir="ltr"><a href="http://wiki.secondlife.com/wiki/Category:Open_Source_Portal" title="Category:Open Source Portal">Open Source Portal</a></span> | <span dir="ltr"><a href="http://wiki.secondlife.com/wiki/Category:Viewer_Architecture" title="Category:Viewer Architecture">Viewer Architecture</a></span></div></div>			<!-- end content -->
+						<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+	
+				 <li id="ca-nstab-main" class="selected"><a href="http://wiki.secondlife.com/wiki/Avatar_Appearance" title="View the content page [ctrl-c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="http://wiki.secondlife.com/w/index.php?title=Talk:Avatar_Appearance&amp;action=edit&amp;redlink=1" title="Discussion about the content page [ctrl-t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-viewsource"><a href="http://wiki.secondlife.com/w/index.php?title=Avatar_Appearance&amp;action=edit" title="This page is protected. You can view its source. [ctrl-e]" accesskey="e">View source</a></li>
+				 <li id="ca-history"><a href="http://wiki.secondlife.com/w/index.php?title=Avatar_Appearance&amp;action=history" title="Past versions of this page. [ctrl-h]" accesskey="h">History</a></li>			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="http://wiki.secondlife.com/w/index.php?title=Special:UserLogin&amp;returnto=Avatar_Appearance" title="You are encouraged to log in, it is not mandatory however. [ctrl-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div title="Main Page" class="portlet" id="p-logo">
+		<a style="background-image: url(&quot;http://d1yjxggot69855.cloudfront.net/images/secondlife.jpg&quot;);" href="http://wiki.secondlife.com/wiki/Main_Page" title="Visit the main page [ctrl-z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-About-.26-Help"><a href="http://wiki.secondlife.com/wiki/Project:About">About &amp; Help</a></li>
+				<li id="n-Editing-Guidelines"><a href="http://wiki.secondlife.com/wiki/Editing_Guidelines">Editing Guidelines</a></li>
+				<li id="n-mainpage"><a accesskey="z" href="http://wiki.secondlife.com/wiki/Main_Page" title="Visit the Main Page [ctrl-z]">Main Page</a></li>
+				<li id="n-recentchanges"><a href="http://wiki.secondlife.com/wiki/Special:RecentChanges" title="The list of recent changes in the wiki. [ctrl-r]" accesskey="r">Recent Changes</a></li>
+				<li id="n-Advanced-Search"><a href="http://wiki.secondlife.com/wiki/Special:Search">Advanced Search</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-other_sites">
+		<h5>other sites</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-knowledgebase"><a href="http://community.secondlife.com/t5/English-Knowledge-Base/tkb-p/English_KB%40tkb">Knowledge Base</a></li>
+				<li id="n-Blogs-.26-Forums"><a href="http://blogs.secondlife.com/">Blogs &amp; Forums</a></li>
+				<li id="n-secondlife.com"><a href="http://secondlife.com/">secondlife.com</a></li>
+				<li id="n-Bug-Tracker"><a href="http://jira.secondlife.com/">Bug Tracker</a></li>
+				<li id="n-Support-Portal"><a href="http://secondlife.com/support">Support Portal</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/w/index.php" id="searchform"><div>
+				<input name="title" value="Special:Search" type="hidden">
+				<input autocomplete="off" id="searchInput" name="search" title="Search Second Life Wiki [ctrl-f]" accesskey="f" type="text">
+				<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">&nbsp;
+				<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://wiki.secondlife.com/wiki/Special:WhatLinksHere/Avatar_Appearance" title="List of all wiki pages that link here [ctrl-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://wiki.secondlife.com/wiki/Special:RecentChangesLinked/Avatar_Appearance" title="Recent changes in pages linked from this page [ctrl-k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="http://wiki.secondlife.com/wiki/Special:SpecialPages" title="List of all special pages [ctrl-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://wiki.secondlife.com/w/index.php?title=Avatar_Appearance&amp;printable=yes" rel="alternate" title="Printable version of this page [ctrl-p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="http://wiki.secondlife.com/w/index.php?title=Avatar_Appearance&amp;oldid=1017032" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-cite"><a href="http://wiki.secondlife.com/w/index.php?title=Special:Cite&amp;page=Avatar_Appearance&amp;id=1017032">Cite this page</a></li>			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="Avatar_Appearance_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki"></a></div>
+				<div id="f-copyrightico"><a href="http://www.creativecommons.org/licenses/by-sa/3.0/"><img src="Avatar_Appearance_files/somerights20.png" alt="Creative Commons Attribution-Share Alike 3.0"></a></div>
+			<ul id="f-list">
+					<li id="lastmod"> This page was last modified on 25 August 2010, at 09:25.</li>
+					<li id="viewcount">This page has been accessed 49,338 times.</li>
+					<li id="copyright">Copyright © 2009 Linden Research, Inc. Licensed under <a href="http://wiki.secondlife.com/wiki/Project:Terms_of_Service" title="Project:Terms of Service">Creative Commons Attribution-Share Alike 3.0</a> unless otherwise noted.</li>
+					<li id="privacy"><a href="http://wiki.secondlife.com/wiki/Project:Terms_of_Use" title="Project:Terms of Use">Privacy policy</a></li>
+					<li id="about"><a href="http://wiki.secondlife.com/wiki/Project:About" title="Project:About">About Second Life Wiki</a></li>
+					<li id="disclaimer"><a href="http://wiki.secondlife.com/wiki/Project:Terms_of_Use" title="Project:Terms of Use">Terms of Use</a></li>
+			</ul>
+		</div>
+</div>
+
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Avatar_Appearance_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-190376-9");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script><!-- Served in 0.370 secs. -->
+</body></html>
