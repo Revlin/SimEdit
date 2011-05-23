@@ -9,28 +9,15 @@ Running:
 
 To run, just double click the shortcut for your os (maybe a windows person can help me out here, sry; the exe is in "application.windows") or you can open "SimEdit.pde" if you have Processing installed on your machine. The "data" folder contains all the .png files which SimEdit needs to start up.
 
-Saving:
-
-Press the 's' key to save. At the moment I have not implemented a way to name the file you're working on when you save, so each type of file gets a generic name and successive saves WILL OVERWRITE previous saves. To avoid this just change the name of the file after you save it. 
-
-Example: You are working on a skin for the head of an avatar and you press 's' 
--> "./data/skin/Sim-Test-Head-512.png" 
--> "./data/skin/Sim-Test-Top-512.png" 
--> "./data/skin/Sim-Test-Bottom-512.png" 
-^ All three of these files will be saved if you are working on any portion of a skin ^
-
-Example: You are painting an eyeball for your avatar and you press 's' 
--> "./data/eyes/Sim-Test-Eyes-256.png"
-
-...and so on
-
 Opening:
 
-Since I haven't implemented a module for selecting and loading files, you'll have to have Processing installed and go into the source, "SimEdit.pde". Look for a group of lines in the setup() function, like:
+When you first load into any mode (skin, eye, hair, etc.) the Open/New dialogue box will appear. Here you can type a file name and either this name will be a file that you choose to open by clicking 'OPEN' or it will be the name for your new file if you click 'NEW'. If a file fails to open (probably because it has not been placed in the correct folder within "./data/") then the name will default to become a new file.
 
-sl_skin_head = loadImage("Blank-512.png");
+Saving:
 
-If you wanted to load a head texture, you would place your .png or .tga file in the "data" folder and then change "Blank-512.png" in the above line to the name of your file. Then hit the run button in Processing, go to the appropriate editing canvas and you should see your texture. Remember, though that saving will not change your original texture, but instead load to the generic type-named file in "./data/skin" or "./data/hair", etc. "Blank-512.png" is the name of a fully transparent .png file located in the "data" folder. 
+Since you've already chosen the name of the file you are working on, pressing Shift + S will save the canvas to a file under that name. Thus, choose the name carefully when you begin editing because it will stick until you start over with a new file or open an existing file. 
+
+Files are saved in specific folders, chosen by type and must be opened in the same way. If you are working on a skin texture, the saved file will be located in "./data/skin". If you are working on an eye look in "./data/eyes" ...and so on.
 
 Controls:
 
@@ -40,6 +27,8 @@ F1, F2, F3 	- Switch between types of textures, respectively Skin, Hair and Eyes
 
 TAB 	- Switch between normal and alpha mode, in order to edit the alpha channel of a texture using grayscale marks (white is opaque; black is transparent)
 
+O	- Open file (which has been placed in the appropriate folder, i.e. "./data/...") or initiate a New file with the given name 
+
 G 	- Grab color from canvas
 
 Shift + G 	- Grab grayscale value from canvas
@@ -48,7 +37,9 @@ F 	- Fill all pixels matching the color of the the cursor selection with selecte
 
 Shift + F 	- Fill all pixels matching the brightness (whiteness) of the cursor selection with selected color
 
-S 	- Save current canvas
+S 	- Save current canvas to file
+
+Shift + S 	- Temporarily save canvas for later retrieval via undo (below)
 
 U 	- Undo to initial state of current canvas
 
