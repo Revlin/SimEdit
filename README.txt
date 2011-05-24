@@ -11,7 +11,7 @@ To run, just double click the shortcut for your os (maybe a windows person can h
 
 Opening:
 
-When you first load into any mode (skin, eye, hair, etc.) the Open/New dialogue box will appear. Here you can type a file name and either this name will be a file that you choose to open by clicking 'OPEN' or it will be the name for your new file if you click 'NEW'. If a file fails to open (probably because it has not been placed in the correct folder within "./data/") then the name will default to become a new file.
+When you first load into any mode (skin, eye, hair, etc.) the Open/New dialogue box will appear. Here you can type a file name and either this name will be a file that you choose to open by clicking 'OPEN' or it will be the name for your new file if you click 'NEW'. If a file fails to open (probably because it has not been placed in the correct folder within "./data/") then you are returned to the Open/New dialogue to try again.
 
 Saving:
 
@@ -37,9 +37,9 @@ F 	- Fill all pixels matching the color of the the cursor selection with selecte
 
 Shift + F 	- Fill all pixels matching the brightness (whiteness) of the cursor selection with selected color
 
-S 	- Save current canvas to file
+S 	- Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)
 
-Shift + S 	- Temporarily save canvas for later retrieval via undo (below)
+Shift + S 	- Save current canvas to file (normal save)
 
 U 	- Undo to initial state of current canvas
 

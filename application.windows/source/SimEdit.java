@@ -561,7 +561,7 @@ public void showAlpha(PGraphics canvas, boolean init) {
     for (int i = 0; i < offw; i++) {
       for (int j = 0; j < offw; j++) {
         int z = canvas.pixels[(i + j * offw)];
-        a_canvas.pixels[(i + j * offw)] = color(0, 0, alpha(z));
+        a_canvas.pixels[(i + j * offw)] = color(0, 0, alpha(z), 127);
       }
     }
     a_canvas.updatePixels();
@@ -575,8 +575,8 @@ public void showAlpha(PGraphics canvas, boolean init) {
     a_canvas.beginDraw();
     a_canvas.colorMode(HSB, 256);
     colorMode(HSB, 256);
-    a_canvas.stroke(brightness(current_clr), 192);
-    stroke(brightness(current_clr), 192);
+    a_canvas.stroke(brightness(current_clr), 127);
+    stroke(brightness(current_clr), 127);
     a_canvas.strokeWeight(2);
     strokeWeight((int)(2*offx));
     float strkA, strkB, strkC, strkD;
@@ -622,7 +622,7 @@ public void colorFill(PGraphics canvas) {
         if ((brightness(z) <= brightness(fill_clr) + 127) && (brightness(z) >= brightness(fill_clr) - 127)) {
            if(ctrl_key && (brightness(z) <= brightness(fill_clr) + 15) && (brightness(z) >= brightness(fill_clr) - 15) && (saturation(z) <= 32) ) { 
             tmp_canvas.pixels[((int)(i/offx) + (int)(j/offy) * offw)] = current_clr;
-          } else if ((hue(z) <= hue(fill_clr) + 3) && (hue(z) >= hue(fill_clr) - 3) && (saturation(z) <= saturation(fill_clr) + 27) && (saturation(z) >= saturation(fill_clr) - 27)) {
+          } else if ((hue(z) <= hue(fill_clr) + 3) && (hue(z) >= hue(fill_clr) - 3) && (saturation(z) <= saturation(fill_clr) + 3) && (saturation(z) >= saturation(fill_clr) - 3) && (brightness(z) <= brightness(fill_clr) + 15) && (brightness(z) >= brightness(fill_clr) - 15)) {
             tmp_canvas.pixels[((int)(i/offx) + (int)(j/offy) * offw)] = current_clr;
           }
         }
@@ -659,6 +659,8 @@ public void openDialogue(boolean init) {
   textFont(font, 18);
   fill(208);
   text(prompt, 260, 264);
+  
+  /* Open Button */
   if(mouseX > 640 && mouseX < 680 && mouseY > 248 && mouseY < 266) {
     fill(255);
     if (mousePressed) {
@@ -674,6 +676,8 @@ public void openDialogue(boolean init) {
     }
   }
   text(open_button, 640, 264);
+  
+  /* New Button */
   fill(208);
   if(mouseX > 692 && mouseX < 730 && mouseY > 248 && mouseY < 266) {
     fill(255);
@@ -684,6 +688,7 @@ public void openDialogue(boolean init) {
     }
   }
   text(new_button, 692, 264);
+  
   if (!init) {
     fill(0);
     text(filename[file_type], 370, 264);
@@ -696,11 +701,211 @@ public void openDialogue(boolean init) {
       filename[file_type] = filename[file_type].substring(0, (filename[file_type].length()-1));
     } else if (key != CODED) {
       time_t = 0;
-      filename[file_type] = filename[file_type] + key;
+      switch (key) {
+        case '1':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '2':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '3':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '4':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '5':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '6':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '7':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '8':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '9':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '0':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '-':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '_':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '.':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case '/':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'q':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'Q':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'w':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'W':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'e':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'E':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'r':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'R':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 't':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'T':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'y':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'Y':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'u':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'U':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'i':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'I':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'o':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'O':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'p':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'P':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'a':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'A':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 's':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'S':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'd':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'D':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'f':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'F':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'g':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'G':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'h':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'H':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'j':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'J':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'k':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'K':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'l':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'L':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'z':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'Z':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'x':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'X':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'c':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'C':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'v':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'V':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'b':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'B':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'n':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'N':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'm':
+          filename[file_type] = filename[file_type] + key;
+          break;
+        case 'M':
+          filename[file_type] = filename[file_type] + key;
+          break;
+         
+      }
     }
   }
   
-}
+} 
 
 public boolean openNew(boolean openfile) {
   
@@ -732,7 +937,8 @@ public boolean openNew(boolean openfile) {
       sl_eyes = loadImage("eyes/" + filename[file_type]);
       if (sl_eyes == null) return false;
       graphEyes();
-    }     
+    }
+    saveTemp();
   }
   
   /* Initiate new file or overwrite existing file */
