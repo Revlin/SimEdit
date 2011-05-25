@@ -58,6 +58,7 @@ PImage sl_base_eyes;
 void setup() {
   size(1024, 768);
   frameRate(30);
+  cursor(CROSS);
   font = loadFont("font/LucidaGrande-48.vlw");
   filename[0] = "Sim-Test-Head-512.png";
   filename[1] = "Sim-Test-Top-512.png";
@@ -149,6 +150,7 @@ void draw() {
       if (!open_new) {
         open_new = true;
         saveTemp();
+        tab_key = false;
         if (current_mode == skin_mode) {
           if (current_skin == 0) {
             file_type = 0;
@@ -299,7 +301,12 @@ void draw() {
   oldMY = mouseY;
 }
 
+void mouseReleased() {
+  cursor(CROSS);
+}
+
 void skinMode(boolean mode_init) {
+  //cursor(CROSS);
   
   if (mode_init) {
     offx = 1.5;
@@ -315,11 +322,12 @@ void skinMode(boolean mode_init) {
   
     /*Draw on sk_canvas*/
     if (mousePressed && (mouseX < 768)) {
+      noCursor();
       sk_canvas.beginDraw();
       sk_canvas.colorMode(HSB, 256);
       colorMode(HSB, 256);
-      sk_canvas.stroke(current_clr, 222);
-      stroke(current_clr, 222);
+      sk_canvas.stroke(current_clr);
+      stroke(current_clr);
       sk_canvas.strokeWeight(2);
       strokeWeight(3);
       float strkA, strkB, strkC, strkD;
@@ -361,6 +369,7 @@ void skinMode(boolean mode_init) {
 }
 
 void hairMode(boolean mode_init) {
+  //cursor(CROSS);
   
   if (mode_init) {
     offx = 1.5;
@@ -376,11 +385,12 @@ void hairMode(boolean mode_init) {
    
     /*Draw on hr_canvas*/
     if (mousePressed && (mouseX < 768)) {
+      noCursor();
       hr_canvas.beginDraw();
       hr_canvas.colorMode(HSB, 256);
       colorMode(HSB, 256);
-      hr_canvas.stroke(current_clr, 222);
-      stroke(current_clr, 222);
+      hr_canvas.stroke(current_clr);
+      stroke(current_clr);
       hr_canvas.strokeWeight(2);
       strokeWeight(3);
       float strkA, strkB, strkC, strkD;
@@ -404,6 +414,7 @@ void hairMode(boolean mode_init) {
 }
 
 void eyeMode(boolean mode_init) {
+  //cursor(CROSS);
   
   if (mode_init) {
     offx = 3;
@@ -419,11 +430,12 @@ void eyeMode(boolean mode_init) {
   
     /*Draw on i_canvas*/
     if (mousePressed && (mouseX < 768)) {
+      noCursor();
       i_canvas.beginDraw();
       i_canvas.colorMode(HSB, 256);
       colorMode(HSB, 256);
-      i_canvas.stroke(current_clr, 222);
-      stroke(current_clr, 222);
+      i_canvas.stroke(current_clr);
+      stroke(current_clr);
       i_canvas.strokeWeight(2);
       strokeWeight(6);
       float strkA, strkB, strkC, strkD;
@@ -443,6 +455,48 @@ void eyeMode(boolean mode_init) {
     open_new = true;
     openDialogue(true);
     return;
+  }
+}
+
+/* Show alpha channel */
+void showAlpha(PGraphics canvas, boolean init) {
+  //cursor(CROSS);
+  
+  if (init) {
+    a_canvas = createGraphics(offw, offw, JAVA2D);
+    canvas.loadPixels();
+    a_canvas.loadPixels();
+    a_canvas.background(0);
+    for (int i = 0; i < offw; i++) {
+      for (int j = 0; j < offw; j++) {
+        color z = canvas.pixels[(i + j * offw)];
+        a_canvas.pixels[(i + j * offw)] = color(0, 0, alpha(z), (int)(255 - alpha(z)/2));
+      }
+    }
+    a_canvas.updatePixels();
+    image(a_canvas, 0, 0, 768, 768);
+  }
+  
+  getColor();
+  
+  /*Draw on a_canvas*/
+  if (mousePressed && (mouseX < 768)) {
+    noCursor();
+    a_canvas.beginDraw();
+    a_canvas.colorMode(HSB, 256);
+    colorMode(HSB, 256);
+    a_canvas.stroke(brightness(current_clr));
+    stroke(brightness(current_clr), (int)(255 - brightness(current_clr)/2));
+    a_canvas.strokeWeight(2);
+    strokeWeight((int)(2*offx));
+    float strkA, strkB, strkC, strkD;
+    strkA = oldMX/offx;
+    strkB = oldMY/offy;
+    strkC = mouseX/offx;
+    strkD = mouseY/offy;
+    a_canvas.line(strkA, strkB, strkC, strkD);
+    line(oldMX, oldMY, mouseX, mouseY);
+    a_canvas.endDraw();
   }
 }
 
@@ -530,45 +584,6 @@ void graphEyes() {
   i_canvas.image(sl_eyes, 0, 0);
   i_canvas.endDraw();
   image(i_canvas, 0, 0, 768, 768);
-}
-
-/* Show alpha channel */
-void showAlpha(PGraphics canvas, boolean init) {
-  if (init) {
-    a_canvas = createGraphics(offw, offw, JAVA2D);
-    canvas.loadPixels();
-    a_canvas.loadPixels();
-    a_canvas.background(0);
-    for (int i = 0; i < offw; i++) {
-      for (int j = 0; j < offw; j++) {
-        color z = canvas.pixels[(i + j * offw)];
-        a_canvas.pixels[(i + j * offw)] = color(0, 0, alpha(z), 127);
-      }
-    }
-    a_canvas.updatePixels();
-    image(a_canvas, 0, 0, 768, 768);
-  }
-  
-  getColor();
-  
-  /*Draw on a_canvas*/
-  if (mousePressed && (mouseX < 768)) {
-    a_canvas.beginDraw();
-    a_canvas.colorMode(HSB, 256);
-    colorMode(HSB, 256);
-    a_canvas.stroke(brightness(current_clr), 127);
-    stroke(brightness(current_clr), 127);
-    a_canvas.strokeWeight(2);
-    strokeWeight((int)(2*offx));
-    float strkA, strkB, strkC, strkD;
-    strkA = oldMX/offx;
-    strkB = oldMY/offy;
-    strkC = mouseX/offx;
-    strkD = mouseY/offy;
-    a_canvas.line(strkA, strkB, strkC, strkD);
-    line(oldMX, oldMY, mouseX, mouseY);
-    a_canvas.endDraw();
-  }
 }
 
 /* Save Alpha channel */

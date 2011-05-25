@@ -7,17 +7,18 @@ This program was created to edit assets like textures, shapes, sculpties and ani
 
 Running:
 
-To run, just double click the shortcut for your os (maybe a windows person can help me out here, sry; the exe is in "application.windows") or you can open "SimEdit.pde" if you have Processing installed on your machine. The "data" folder contains all the .png files which SimEdit needs to start up.
+To run, just double click the shortcut for your os (mac, linux, windows) or you can open "SimEdit.pde" if you have Processing installed on your machine. The "data" folder contains all the .png files which SimEdit needs to start up.
 
 Opening:
 
-When you first load into any mode (skin, eye, hair, etc.) the Open/New dialogue box will appear. Here you can type a file name and either this name will be a file that you choose to open by clicking 'OPEN' or it will be the name for your new file if you click 'NEW'. If a file fails to open (probably because it has not been placed in the correct folder within "./data/") then you are returned to the Open/New dialogue to try again.
+When you first load into any mode (skin, eye, hair, etc.) the Open/New dialogue box will appear. Here you can type a file name and either this name will be a file that you choose to open by clicking 'OPEN' or it will be the name for your new file if you click 'NEW'. If a file fails to open (probably because it has not been placed in the correct folder within "./data/") then you are returned to the Open/New dialogue to try again. 
+NOTE: Windows version places the "data" folder in "application.windows".
 
 Saving:
 
-Since you've already chosen the name of the file you are working on, pressing Shift + S will save the canvas to a file under that name. Thus, choose the name carefully when you begin editing because it will stick until you start over with a new file or open an existing file. 
-
-Files are saved in specific folders, chosen by type and must be opened in the same way. If you are working on a skin texture, the saved file will be located in "./data/skin". If you are working on an eye look in "./data/eyes" ...and so on.
+Since you've already chosen the name of the file you are working on, pressing Shift + S will save the canvas to a file under that name. Thus, choose the name carefully when you begin editing because it will stick until you start over with a new file or open an existing file.
+Files are saved in specific folders, chosen by type and must be opened in the same way. If you are working on a skin texture, the saved file will be located in "./data/skin". If you are working on an eye look in "./data/eyes" ...and so on. 
+NOTE: Windows version places the "data" folder in "application.windows".
 
 Controls:
 
