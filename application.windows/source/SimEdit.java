@@ -29,26 +29,32 @@ byte current_mode = 0;
 byte skin_mode = 0;
 byte hair_mode = 1;
 byte eye_mode = 2;
-byte shape_mode = 3;
+byte uv_mode = 3;
 int current_clr;
+boolean show_help = false;
 boolean no_load = false;
 boolean show_save = false;
 boolean open_new = false;
 boolean ctrl_key = false;
 boolean tab_key = false;
 boolean mouse_up = false;
+boolean drawing = false;
 PGraphics a_canvas;
+PGraphics p_canvas;
+byte mark_size = 2;
 
 /* Text dialogue vars */
 PFont font;
-boolean[] loaded = { false, false, false, false, false };
-String[] filename = new String[5];
+boolean[] loaded = { false, false, false, false, false, false };
+Textline texturename[] = new Textline[6];
+Textline alphaname;;
 byte file_type = 0;
 byte sk_head_file = 0;
 byte sk_top_file = 1;
 byte sk_bottom_file = 2;
 byte hair_file = 3;
 byte eyes_file = 4;
+byte uv_file = 5;
 
 /* Skin mode vars */
 PGraphics sk_canvas;
@@ -73,17 +79,36 @@ PGraphics i_canvas;
 PImage sl_eyes;
 PImage sl_base_eyes;
 
+/* UV mode vars */
+Textline uv_map_name;
+int uv_map_size = 512;
+byte uv_map_type = 0;
+byte uv_grid = 0;
+byte uv_box = 1;
+byte uv_prism = 2;
+byte uv_cylinder = 3;
+byte uv_torus = 4;
+byte uv_tube = 5;
+byte uv_ring = 6;
+byte uv_custom = 7;
+PGraphics uv_canvas;
+PImage uv_texture;
+PImage uv_base_map;
+
 
 public void setup() {
   size(1024, 768);
   frameRate(30);
   cursor(CROSS);
+  current_clr = color( 0, 0, 0);
   font = loadFont("font/LucidaGrande-48.vlw");
-  filename[0] = "Sim-Test-Head-512.png";
-  filename[1] = "Sim-Test-Top-512.png";
-  filename[2] = "Sim-Test-Bottom-512.png";
-  filename[3] = "Sim-Test-Hair-512.png";
-  filename[4] = "Sim-Test-Eyes-256.png";
+  texturename[0] = new Textline("Sim-Test-Head-512.png");
+  texturename[1] = new Textline("Sim-Test-Top-512.png");
+  texturename[2] = new Textline("Sim-Test-Bottom-512.png");
+  texturename[3] = new Textline("Sim-Test-Hair-512.png");
+  texturename[4] = new Textline("Sim-Test-Eyes-256.png");
+  texturename[5] = new Textline("UV-Test-512.png");
+  uv_map_name = new Textline("UV-Grid-512.png");
   sl_base_head = loadImage("skin/SL-Avatar-Head-512.png");
   sl_base_top = loadImage("skin/SL-Avatar-Top-512.png");
   sl_base_bottom = loadImage("skin/SL-Avatar-Bottom-512.png");
@@ -94,6 +119,8 @@ public void setup() {
   sl_hair = loadImage("blank/Blank-512.png");
   sl_base_eyes = loadImage("eyes/SL-Avatar-Eyes-256.png");
   sl_eyes = loadImage("blank/Blank-256.png");
+  uv_texture = loadImage("blank/Blank-512.png");
+  uv_base_map = loadImage("uv/" + uv_map_name.content);
   
   if (current_mode == skin_mode) {
     current_skin = sk_head;
@@ -107,8 +134,40 @@ public void draw() {
     time_t = 3;
   }
   
+  if (show_help) {
+    if (time_t >= 3 && keyPressed) {
+      time_t = 0;
+    
+      if (key == 'h' || key == 'H') {
+        show_help = false;
+        if (current_mode == skin_mode) {
+          skinMode(true);
+          if (tab_key) {
+            showAlpha(sk_canvas, true);
+          }
+        } else if (current_mode == hair_mode) {
+          hairMode(true);
+          if (tab_key) {
+            showAlpha(hr_canvas, true);
+          }
+        } else if (current_mode == eye_mode) {
+          eyeMode(true);
+          if (tab_key) {
+            showAlpha(i_canvas, true);
+          }
+        } else if (current_mode == uv_mode) {
+          uvMode(true);
+          if (tab_key) {
+            showAlpha(uv_canvas, true);
+          }
+        }
+      } 
+    }
+    return;
+  }
+  
   if (show_save) {
-    if (time_t < 60) {
+    if (time_t < 30) {
       return;
     } else {
       show_save = false;
@@ -118,6 +177,8 @@ public void draw() {
         graphHair();
       } else if (current_mode == eye_mode) {
         graphEyes();
+      } else if (current_mode == uv_mode) {
+        graphUV();
       }
     }
   }
@@ -133,6 +194,8 @@ public void draw() {
         hairMode(true);
       } else if (current_mode == eye_mode) {
         eyeMode(true);
+      } else if (current_mode == uv_mode) {
+        uvMode(true);
       }
     }
   }
@@ -158,18 +221,56 @@ public void draw() {
     } else if (tab_key) {
       showAlpha(i_canvas, false);
     } else eyeMode(false);
+  } else if (current_mode == uv_mode) {
+    if (open_new) {
+      openDialogue(false);
+      return;
+    } else if (tab_key) {
+      showAlpha(uv_canvas, false);
+    } else uvMode(false);
   }
   
   /* Check keyboard */
   if (time_t >= 3 && keyPressed) {
     time_t = 0;
     
+    /* Show Help */
+    if (key == 'h' || key == 'H') {
+      if (!show_help) {
+        saveTemp();
+        if (tab_key) {
+          if (current_mode == skin_mode) {
+            saveAlpha(sk_canvas);
+          } else if (current_mode == hair_mode) {
+            saveAlpha(hr_canvas);
+          } else if (current_mode == eye_mode) {
+            saveAlpha(i_canvas);
+          } else if (current_mode == uv_mode) {
+            saveAlpha(uv_canvas);
+          }
+        }
+        show_help = true;
+        showHelp();
+        return;
+      }
+    }
+          
     /* Open/New Dialogue */
     if (key == 'o' || key == 'O') {
       if (!open_new) {
         open_new = true;
+        if (tab_key) {
+          if (current_mode == skin_mode) {
+            saveAlpha(sk_canvas);
+          } else if (current_mode == hair_mode) {
+            saveAlpha(hr_canvas);
+          } else if (current_mode == eye_mode) {
+            saveAlpha(i_canvas);
+          } else if (current_mode == uv_mode) {
+            saveAlpha(uv_canvas);
+          }
+        }
         saveTemp();
-        tab_key = false;
         if (current_mode == skin_mode) {
           if (current_skin == 0) {
             file_type = 0;
@@ -182,6 +283,8 @@ public void draw() {
           file_type = 3;
         } else if (current_mode == eye_mode) {
           file_type = 4;
+        } else if (current_mode == uv_mode) {
+          file_type = 5;
         }
         openDialogue(true);
       }
@@ -200,6 +303,9 @@ public void draw() {
         } else if (current_mode == eye_mode) {
           saveAlpha(i_canvas);
           eyeMode(true);
+        } else if (current_mode == uv_mode) {
+          saveAlpha(uv_canvas);
+          uvMode(true);
         }
       } else {
         saveTemp();
@@ -210,26 +316,35 @@ public void draw() {
           showAlpha(hr_canvas, true);
         } else if (current_mode == eye_mode) {
           showAlpha(i_canvas, true);
+        } else if (current_mode == uv_mode) {
+          showAlpha(uv_canvas, true);
         }
       }
-    } else if (key == CODED && keyCode == KeyEvent.VK_F1) {
+    } else if (key == CODED && keyCode == KeyEvent.VK_F1 && (!tab_key)) {
       saveTemp();
       current_mode = skin_mode;
       skinMode(true);
-    } else if (key == CODED && keyCode == KeyEvent.VK_F2) {
+    } else if (key == CODED && keyCode == KeyEvent.VK_F2 && (!tab_key)) {
       saveTemp();
       current_mode = hair_mode;
       hairMode(true);
-    } else if (key == CODED && keyCode == KeyEvent.VK_F3) {
+    } else if (key == CODED && keyCode == KeyEvent.VK_F3 && (!tab_key)) {
       saveTemp();
       current_mode = eye_mode;
       eyeMode(true);
-    } else if (key == CODED && keyCode == KeyEvent.VK_F4) {
+    } else if (key == CODED && keyCode == KeyEvent.VK_F4 && (!tab_key)) {
       saveTemp();
-      current_mode = shape_mode;
+      current_mode = uv_mode;
+      uvMode(true);
     } 
     
     else if (current_mode == skin_mode) {
+      if ((key == '+') && (mark_size < 32)) {
+        mark_size = (byte)(mark_size*2);
+      }
+      if ((key == '-') && (mark_size > 1)) {
+        mark_size = (byte)(mark_size/2);
+      }
       if (key == 'n' || key == 'N') {
         nextKey();
         ctrl_key = false;
@@ -264,6 +379,12 @@ public void draw() {
     }
     
     else if (current_mode == hair_mode) {
+      if ((key == '+') && (mark_size < 32)) {
+        mark_size = (byte)(mark_size*2);
+      }
+      if ((key == '-') && (mark_size > 1)) {
+        mark_size = (byte)(mark_size/2);
+      }
       if (key == 'f' || key == 'F') {
         if (mouseX < 768 && mouseY < 768) {
           if (key == 'F') ctrl_key = true;
@@ -290,6 +411,12 @@ public void draw() {
     }
     
     else if (current_mode == eye_mode) {
+      if ((key == '+') && (mark_size < 32)) {
+        mark_size = (byte)(mark_size*2);
+      }
+      if ((key == '-') && (mark_size > 1)) {
+        mark_size = (byte)(mark_size/2);
+      }
       if (key == 'f' || key == 'F') {
         if (mouseX < 768 && mouseY < 768) {
           if (key == 'F') ctrl_key = true;
@@ -314,7 +441,67 @@ public void draw() {
         ctrl_key = false;
       }
     }
+    
+    else if (current_mode == uv_mode) {
+      if ((key == '+') && (mark_size < 32)) {
+        mark_size = (byte)(mark_size*2);
+      }
+      if ((key == '-') && (mark_size > 1)) {
+        mark_size = (byte)(mark_size/2);
+      }
+      if (key == 'f' || key == 'F') {
+        if (mouseX < 768 && mouseY < 768) {
+          if (key == 'F') ctrl_key = true;
+          colorFill(uv_canvas); 
+          ctrl_key = false;
+        }
+      }
+      if (key == 'g' || key == 'G') {
+        if (key == 'G') ctrl_key = true;
+        if (mouseX < 768 && mouseY < 768) {
+          colorGrab(uv_canvas); 
+          ctrl_key = false;
+        }
+      }
+      if (key == 's' || key == 'S') {
+        if (key == 'S') ctrl_key = true;
+        saveKey(); 
+        ctrl_key = false;
+      }
+      if (key == 'u' || key == 'U') {
+        undoTemp(); 
+        ctrl_key = false;
+      }
+    }
+    
   }
+  
+  /* Help Button */
+  String help_button = "HELP";
+  textFont(font, 14);
+  if(mouseX > 986 && mouseX < 1022 && mouseY > 0 && mouseY < 10) {
+    fill(255);
+    if (mousePressed) {
+      if (!show_help) {
+        saveTemp();
+        if (tab_key) {
+          if (current_mode == skin_mode) {
+            saveAlpha(sk_canvas);
+          } else if (current_mode == hair_mode) {
+            saveAlpha(hr_canvas);
+          } else if (current_mode == eye_mode) {
+            saveAlpha(i_canvas);
+          } else if (current_mode == uv_mode) {
+            saveAlpha(uv_canvas);
+          }
+        }
+        show_help = true;
+        showHelp();
+        return;
+      }      
+    }
+  } else fill(208, 255);
+  text(help_button, 986, 12);
          
   oldMX = mouseX;
   oldMY = mouseY;
@@ -322,6 +509,7 @@ public void draw() {
 
 public void mouseReleased() {
   cursor(CROSS);
+  drawing = false;
 }
 
 public void skinMode(boolean mode_init) {
@@ -336,53 +524,54 @@ public void skinMode(boolean mode_init) {
     saveTemp();
     
   } else {
+    
+    if (current_skin == 0) {
+      file_type = 0;
+      if (!loaded[sk_head_file]) {
+        open_new = true;
+        openDialogue(true);
+        return;
+      }
+    } else if (current_skin == 1) {
+      file_type = 1;
+      if (!loaded[sk_top_file]) {
+        open_new = true;
+        openDialogue(true);
+        return;
+      }
+    } else if (current_skin == 2) {
+      file_type = 2;
+      if (!loaded[sk_bottom_file]) {
+        open_new = true;
+        openDialogue(true);
+        return;
+      }
+    }
   
-    getColor();
+    if (!drawing) {
+      getColor();
+      showColor();
+    }
   
     /*Draw on sk_canvas*/
     if (mousePressed && (mouseX < 768)) {
+      drawing = true;
       noCursor();
       sk_canvas.beginDraw();
       sk_canvas.colorMode(HSB, 256);
       colorMode(HSB, 256);
-      sk_canvas.stroke(current_clr);
-      stroke(current_clr);
-      sk_canvas.strokeWeight(2);
-      strokeWeight(3);
       float strkA, strkB, strkC, strkD;
       strkA = oldMX/offx;
       strkB = oldMY/offy;
       strkC = mouseX/offx;
       strkD = mouseY/offy;
+      sk_canvas.stroke(current_clr);
+      stroke(current_clr);
+      sk_canvas.strokeWeight(mark_size);
+      strokeWeight((int)(mark_size*offx));
       sk_canvas.line(strkA, strkB, strkC, strkD);
       line(oldMX, oldMY, mouseX, mouseY);
       sk_canvas.endDraw();
-    }
-  }
-  
-  if (current_skin == 0) {
-    file_type = 0;
-    if (!loaded[sk_head_file]) {
-      loaded[sk_head_file] = true;
-      open_new = true;
-      openDialogue(true);
-      return;
-    }
-  } else if (current_skin == 1) {
-    file_type = 1;
-    if (!loaded[sk_top_file]) {
-      loaded[sk_top_file] = true;
-      open_new = true;
-      openDialogue(true);
-      return;
-    }
-  } else if (current_skin == 2) {
-    file_type = 2;
-    if (!loaded[sk_bottom_file]) {
-      loaded[sk_bottom_file] = true;
-      open_new = true;
-      openDialogue(true);
-      return;
     }
   }
 }
@@ -400,18 +589,29 @@ public void hairMode(boolean mode_init) {
     
   } else {
     
-    getColor();
+    file_type = 3;
+    if (!loaded[hair_file]) {
+      open_new = true;
+      openDialogue(true);
+      return;
+    }
+    
+    if (!drawing) {
+      getColor();
+      showColor();
+    }
    
     /*Draw on hr_canvas*/
     if (mousePressed && (mouseX < 768)) {
+      drawing = true;
       noCursor();
       hr_canvas.beginDraw();
       hr_canvas.colorMode(HSB, 256);
       colorMode(HSB, 256);
       hr_canvas.stroke(current_clr);
       stroke(current_clr);
-      hr_canvas.strokeWeight(2);
-      strokeWeight(3);
+      hr_canvas.strokeWeight(mark_size);
+      strokeWeight((int)(mark_size*offx));
       float strkA, strkB, strkC, strkD;
       strkA = oldMX/offx;
       strkB = oldMY/offy;
@@ -421,14 +621,6 @@ public void hairMode(boolean mode_init) {
       line(oldMX, oldMY, mouseX, mouseY);
       hr_canvas.endDraw();
     }
-  }
-  
-  file_type = 3;
-  if (!loaded[hair_file]) {
-    loaded[hair_file] = true;
-    open_new = true;
-    openDialogue(true);
-    return;
   }
 }
 
@@ -445,18 +637,29 @@ public void eyeMode(boolean mode_init) {
     
   } else {
     
-    getColor();
+    file_type = 4;
+    if (!loaded[eyes_file]) {
+      open_new = true;
+      openDialogue(true);
+      return;
+    }
+    
+    if (!drawing) {
+      getColor();
+      showColor();
+    }
   
     /*Draw on i_canvas*/
     if (mousePressed && (mouseX < 768)) {
+      drawing = true;
       noCursor();
       i_canvas.beginDraw();
       i_canvas.colorMode(HSB, 256);
       colorMode(HSB, 256);
       i_canvas.stroke(current_clr);
       stroke(current_clr);
-      i_canvas.strokeWeight(2);
-      strokeWeight(6);
+      i_canvas.strokeWeight(mark_size);
+      strokeWeight((int)(mark_size*offx));
       float strkA, strkB, strkC, strkD;
       strkA = oldMX/offx;
       strkB = oldMY/offy;
@@ -467,14 +670,69 @@ public void eyeMode(boolean mode_init) {
       i_canvas.endDraw();
     }
   }
+}
+
+public void uvMode(boolean mode_init) {
+  //cursor(CROSS);
   
-  file_type = 4;
-  if (!loaded[eyes_file]) {
-    loaded[eyes_file] = true;
-    open_new = true;
-    openDialogue(true);
-    return;
+  if (mode_init) {
+    switch (uv_map_size) {
+      case 512:
+        offx = 1.5f;
+        offy = 1.5f;
+        offw = 512;
+        break;
+      case 256:
+        offx = 3;
+        offy = 3;
+        offw = 256;
+        break;
+      case 128:
+        offx = 6;
+        offy = 6;
+        offw = 128;
+        break;
+    }
+    drawPallette();
+    graphUV();
+    saveTemp();
+    
+  } else {
+    
+    file_type = 5;
+    if (!loaded[uv_file]) {
+      open_new = true;
+      openDialogue(true);
+      return;
+    }
+    
+    if (!drawing) {
+      getColor();
+      showColor();
+    }
+  
+    /*Draw on uv_canvas*/
+    if (mousePressed && (mouseX < 768)) {
+      drawing = true;
+      noCursor();
+      uv_canvas.beginDraw();
+      uv_canvas.colorMode(HSB, 256);
+      colorMode(HSB, 256);
+      uv_canvas.stroke(current_clr);
+      stroke(current_clr);
+      uv_canvas.strokeWeight(mark_size);
+      strokeWeight((int)(mark_size*offx));
+      float strkA, strkB, strkC, strkD;
+      strkA = oldMX/offx;
+      strkB = oldMY/offy;
+      strkC = mouseX/offx;
+      strkD = mouseY/offy;
+      uv_canvas.line(strkA, strkB, strkC, strkD);
+      line(oldMX, oldMY, mouseX, mouseY);
+      uv_canvas.endDraw();
+    }
   }
+  
 }
 
 /* Show alpha channel */
@@ -496,73 +754,31 @@ public void showAlpha(PGraphics canvas, boolean init) {
     image(a_canvas, 0, 0, 768, 768);
   }
   
-  getColor();
+  else {
   
-  /*Draw on a_canvas*/
-  if (mousePressed && (mouseX < 768)) {
-    noCursor();
-    a_canvas.beginDraw();
-    a_canvas.colorMode(HSB, 256);
-    colorMode(HSB, 256);
-    a_canvas.stroke(brightness(current_clr));
-    stroke(brightness(current_clr), (int)(255 - brightness(current_clr)/2));
-    a_canvas.strokeWeight(2);
-    strokeWeight((int)(2*offx));
-    float strkA, strkB, strkC, strkD;
-    strkA = oldMX/offx;
-    strkB = oldMY/offy;
-    strkC = mouseX/offx;
-    strkD = mouseY/offy;
-    a_canvas.line(strkA, strkB, strkC, strkD);
-    line(oldMX, oldMY, mouseX, mouseY);
-    a_canvas.endDraw();
-  }
-}
-
-/* Draw Pallette in side bar */
-public void drawPallette() {
-  noStroke();
-  colorMode(HSB, 256);
-  current_clr = color( 0, 0, 0);
-  for (int i = 0; i < 255; i++) {
-    for (int j = 0; j < 255; j++) {
-      stroke(j, i, 255 - i);
-      point((i+768),j);
-      stroke(j, i, (255 - (int)(i/2)));
-      for (int z = 0; z < 2; z++) {
-        point((i+768),2*j+z+256);
-      }
+    getColor();
+    showColor();
+  
+    /*Draw on a_canvas*/
+    if (mousePressed && (mouseX < 768)) {
+      noCursor();
+      a_canvas.beginDraw();
+      a_canvas.colorMode(HSB, 256);
+      colorMode(HSB, 256);
+      a_canvas.stroke(brightness(current_clr));
+      stroke(brightness(current_clr), (int)(255 - brightness(current_clr)/2));
+      a_canvas.strokeWeight(mark_size);
+      strokeWeight((int)(mark_size*offx));
+      float strkA, strkB, strkC, strkD;
+      strkA = oldMX/offx;
+      strkB = oldMY/offy;
+      strkC = mouseX/offx;
+      strkD = mouseY/offy;
+      a_canvas.line(strkA, strkB, strkC, strkD);
+      line(oldMX, oldMY, mouseX, mouseY);
+      a_canvas.endDraw();
     }
   }
-}
-
-/*Get color from pallete*/
-public void getColor() {
-  if (mousePressed && (mouseX >= 768)) {
-    int h_clr, b_clr, s_clr = mouseX - 768;
-    if (mouseY < 256) {
-      h_clr = mouseY; 
-      b_clr = 1024 - mouseX;
-    } else {
-      h_clr = (mouseY - 256)/2;
-      b_clr = 255;
-    }
-    if (keyPressed && key == CODED && keyCode == KeyEvent.VK_SHIFT) { 
-      current_clr = color(h_clr, 0, b_clr);
-      ctrl_key = false;
-    } else {
-      current_clr = color(h_clr, s_clr, b_clr);
-    }
-  }
-
-  /* Show color */
-  noStroke();
-  colorMode(HSB, 256);
-  fill(current_clr);
-  triangle(768, 224, 800, 256, 768, 286);
-  stroke(current_clr);
-  strokeWeight(2);
-  line(800, 256, 1024, 256); 
 }
 
 /* Graph Skin to Background */
@@ -603,6 +819,68 @@ public void graphEyes() {
   i_canvas.image(sl_eyes, 0, 0);
   i_canvas.endDraw();
   image(i_canvas, 0, 0, 768, 768);
+}
+
+/* Graph UV Texture to Background */
+public void graphUV() {
+  uv_canvas = createGraphics(uv_map_size, uv_map_size, JAVA2D);
+  image(uv_base_map, 0, 0, 768, 768);
+  uv_canvas.beginDraw();
+  uv_canvas.image(uv_texture, 0, 0);
+  uv_canvas.endDraw();
+  image(uv_canvas, 0, 0, 768, 768);
+}
+
+/* Draw Pallette in side bar */
+public void drawPallette() {
+  p_canvas = createGraphics(256, 768, JAVA2D);
+  p_canvas.beginDraw();
+  p_canvas.noStroke();
+  p_canvas.colorMode(HSB, 256);
+  for (int i = 0; i < 255; i++) {
+    for (int j = 0; j < 255; j++) {
+      p_canvas.stroke(j, i, 255 - i);
+      p_canvas.point((i),j);
+      p_canvas.stroke(j, i, (255 - (int)(i/2)));
+      for (int z = 0; z < 2; z++) {
+        p_canvas.point((i),2*j+z+256);
+      }
+    }
+  }
+  p_canvas.endDraw();
+  image(p_canvas, 768, 0);
+}
+
+/*Get color from pallete*/
+public void getColor() {
+  if (mousePressed && (mouseX >= 768)) {
+    int h_clr, b_clr, s_clr = mouseX - 768;
+    if (mouseY < 256) {
+      h_clr = mouseY; 
+      b_clr = 1024 - mouseX;
+    } else {
+      h_clr = (mouseY - 256)/2;
+      b_clr = 255;
+    }
+    if (keyPressed && key == CODED && keyCode == KeyEvent.VK_SHIFT) { 
+      current_clr = color(h_clr, 0, b_clr);
+      ctrl_key = false;
+    } else {
+      current_clr = color(h_clr, s_clr, b_clr);
+    }
+  }
+}
+
+/* Show color */
+public void showColor () {
+  image(p_canvas, 768, 0);
+  noStroke();
+  colorMode(HSB, 256);
+  fill(current_clr);
+  triangle(768, 224, 800, 256, 768, 286);
+  stroke(current_clr);
+  strokeWeight(mark_size);
+  line(800, 256, 1024, 256); 
 }
 
 /* Save Alpha channel */
@@ -666,21 +944,123 @@ public void colorGrab(PGraphics canvas) {
 public void openDialogue(boolean init) {
   String prompt = "FILE NAME:",
   open_button = "OPEN",
-  new_button = "NEW";
+  new_button = "NEW",
+  cancel_button = "X"; 
+  textFont(font, 18);  
+  noStroke();
   fill(12);
   rect(256, 240, 512, 32);
-  fill(255);
-  rect(364, 242, 256, 28);
-  textFont(font, 18);
   fill(208);
   text(prompt, 260, 264);
+  fill(255);
+  rect(364, 242, 256, 28);
+  
+  /* UV Map Open dialogue */
+  if (current_mode == uv_mode) {
+    String promptuv = "MAP TYPE:",
+    grid_button = "GRID",
+    box_button = "BOX",
+    prism_button = "PRISM",
+    cylinder_button = "CYLNDR",
+    torus_button = "TORUS",
+    tube_button = "TUBE",
+    ring_button = "RING",
+    custom_button = "CUTSTOM",
+    size1_button = "128",
+    size2_button = "256",
+    size3_button = "512";
+    fill(12);
+    rect(256, 280, 512, 32);
+    fill(208);
+    text(promptuv, 260, 304);
+    
+    /* Custom map name prompt */
+    if (uv_map_type == uv_custom) {
+      fill(255);
+      rect(364, 282, 256, 28);
+      if (!init) {
+        fill(0);
+        text(uv_map_name.content, 370, 304);
+      }
+      /* Cancel custom button */
+      if(mouseX > 628 && mouseX < 640 && mouseY > 288 && mouseY < 306) {
+        fill(255);
+        if (mousePressed) {
+          uv_map_type = uv_grid;
+        }
+      } else fill(208);
+      text(cancel_button, 628, 304);
+    } 
+    
+    /*UV Map Selections */
+    else {
+      /* Grid button */
+      if (mouseX > 362 && mouseX < 408 && mouseY > 288 && mouseY < 306) {
+        fill(255);
+        if (mousePressed) {
+          uv_map_name.content = "UV-Grid-512.png";
+          uv_base_map = loadImage("uv/" + uv_map_name.content);
+        }
+      } else fill(208);
+      if (uv_map_type == uv_grid) fill(255);
+      text(grid_button, 364, 304);
+      /* Custom button */
+      if (mouseX > 410 && mouseX < 496 && mouseY > 288 && mouseY < 306) {
+        fill(255);
+        if (mousePressed) {
+          uv_map_type = uv_custom;
+        }
+      } else fill(208);
+      text(custom_button, 412, 304);
+    }
+    
+    /* 128 Size Button */
+    if(mouseX > 644 && mouseX < 678 && mouseY > 288 && mouseY < 306) {
+      fill(255);
+      if (mousePressed) {
+        uv_map_size = 128;
+      }
+    } else fill(208);
+    if (uv_map_size == 128) fill (255);
+    text(size1_button, 644, 304);
+    
+    /* 256 Size Button */
+    if(mouseX > 680 && mouseX < 710 && mouseY > 288 && mouseY < 306) {
+      fill(255);
+      if (mousePressed) {
+        uv_map_size = 256;
+      }
+    } else fill(208);
+    if (uv_map_size == 256) fill (255);
+    text(size2_button, 680, 304);
+    
+    /* 512 Size Button */
+    if(mouseX > 714 && mouseX < 756 && mouseY > 288 && mouseY < 306) {
+      fill(255);
+      if (mousePressed) {
+        uv_map_size = 512;
+      }
+    } else fill(208);
+    if (uv_map_size == 512) fill (255);
+    text(size3_button, 716, 304);
+  }    
   
   /* Open Button */
   if(mouseX > 640 && mouseX < 680 && mouseY > 248 && mouseY < 266) {
     fill(255);
     if (mousePressed) {
+      if (current_mode == uv_mode && uv_map_type == uv_custom) {
+        uv_base_map = loadImage("uv/" + uv_map_name.content);
+        if (uv_base_map == null) {
+          uv_base_map = loadImage("uv/UV-Grid-512.png");
+          noUVBox();
+          no_load = true;
+          return;
+        }
+      }
       if (openNew(true)) {
         open_new = false;
+        tab_key = false;
         return;
       } else {
         undoTemp();
@@ -689,281 +1069,142 @@ public void openDialogue(boolean init) {
         return;
       }
     }
-  }
+  } else fill(208);
   text(open_button, 640, 264);
   
   /* New Button */
-  fill(208);
   if(mouseX > 692 && mouseX < 730 && mouseY > 248 && mouseY < 266) {
     fill(255);
     if (mousePressed) { 
+      if (current_mode == skin_mode) {
+        if (current_skin == 0) {
+          loaded[sk_head_file] = true;
+        } else if (current_skin == 1) {
+          loaded[sk_top_file] = true;
+        } else if (current_skin == 2) {
+          loaded[sk_bottom_file] = true;
+        }
+      } else if (current_mode == hair_mode) {
+        loaded[hair_file] = true;
+      } else if (current_mode == eye_mode) {
+        loaded[eyes_file] = true;
+      } else if (current_mode == uv_mode) {
+        loaded[uv_file] = true;
+      }
       openNew(false);
       open_new = false;
+      tab_key = false;
       return;
     }
-  }
+  } else fill(208);
   text(new_button, 692, 264);
+  
+  /* Cancel button */
+  if(mouseX > 736 && mouseX < 754 && mouseY > 248 && mouseY < 266) {
+    fill(255);
+    if (mousePressed) {
+      open_new = false;
+      if (current_mode == skin_mode) {
+        if (current_skin == 0 && loaded[sk_head_file] == true) {
+          skinMode(true);
+          if (tab_key) showAlpha(sk_canvas, true);
+          return;
+        } else if (current_skin == 1 && loaded[sk_top_file] == true) {
+          skinMode(true);
+          if (tab_key) showAlpha(sk_canvas, true);
+          return;
+        } else if (current_skin == 2 && loaded[sk_bottom_file] == true) {
+          skinMode(true);
+          if (tab_key) showAlpha(sk_canvas, true);
+          return;
+        }
+      } else if (current_mode == hair_mode) {
+        if (loaded[hair_file]) {
+          hairMode(true);
+          if (tab_key) showAlpha(hr_canvas, true);
+          return;
+        }
+      } else if (current_mode == eye_mode) {
+        if (loaded[eyes_file]) {
+          eyeMode(true);
+          if (tab_key) showAlpha(i_canvas, true);
+          return;
+        }
+      } else if (current_mode == uv_mode) {
+        if (loaded[uv_file]) {
+          uvMode(true);
+          if (tab_key) showAlpha(uv_canvas, true);
+          return;
+        }
+      }
+    }
+  } else fill(208);
+  text(cancel_button, 738, 264);
   
   if (!init) {
     fill(0);
-    text(filename[file_type], 370, 264);
+    text(texturename[file_type].content, 370, 264);
   }
   
   /* Text input */
-  if (time_t >= 4 && keyPressed) {
-    if ((key == BACKSPACE) && (filename[file_type].length() > 0)) {
-      time_t = 0;
-      filename[file_type] = filename[file_type].substring(0, (filename[file_type].length()-1));
-    } else if (key != CODED) {
-      time_t = 0;
-      switch (key) {
-        case '1':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '2':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '3':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '4':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '5':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '6':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '7':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '8':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '9':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '0':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '-':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '_':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '.':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case '/':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'q':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'Q':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'w':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'W':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'e':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'E':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'r':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'R':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 't':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'T':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'y':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'Y':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'u':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'U':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'i':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'I':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'o':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'O':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'p':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'P':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'a':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'A':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 's':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'S':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'd':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'D':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'f':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'F':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'g':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'G':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'h':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'H':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'j':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'J':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'k':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'K':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'l':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'L':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'z':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'Z':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'x':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'X':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'c':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'C':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'v':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'V':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'b':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'B':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'n':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'N':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'm':
-          filename[file_type] = filename[file_type] + key;
-          break;
-        case 'M':
-          filename[file_type] = filename[file_type] + key;
-          break;
-         
-      }
-    }
-  }
+  if (current_mode == uv_mode && uv_map_type == uv_custom) {
+    textInput(uv_map_name);
+  } else textInput(texturename[file_type]);
   
 } 
 
 public boolean openNew(boolean openfile) {
   
   /* Check that the name is valid */
-  String file_ext = filename[file_type].substring((filename[file_type].length() - 4));
+  String file_ext = texturename[file_type].content.substring((texturename[file_type].content.length() - 4));
   if ((!file_ext.equals(".png")) && (!file_ext.equals(".jpg")) && (!file_ext.equals(".tga")) ){
-    filename[file_type] = filename[file_type] + ".png";
+    texturename[file_type].content = texturename[file_type].content + ".png";
   }
   
   /* Open existing file */
   if(openfile) {
     if (current_mode == skin_mode ) {
-      if (current_skin == sk_bottom) {
-        sl_skin_bottom = loadImage("skin/" + filename[file_type]);
-        if (sl_skin_bottom == null) return false;
-      } else if (current_skin == sk_top) {
-        sl_skin_top = loadImage("skin/" + filename[file_type]);
-        if (sl_skin_top == null) return false;
-      } else if (current_skin == sk_head) {
-        sl_skin_head = loadImage("skin/" + filename[file_type]);
+      if (current_skin == sk_head) {
+        sl_skin_head = loadImage("skin/" + texturename[file_type].content);
         if (sl_skin_head == null) return false;
-      } 
-      graphSkin();
+        loaded[sk_head_file] = true;
+      } else if (current_skin == sk_top) {
+        sl_skin_top = loadImage("skin/" + texturename[file_type].content);
+        if (sl_skin_top == null) return false;
+        loaded[sk_top_file] = true;
+      } else  if (current_skin == sk_bottom) {
+        sl_skin_bottom = loadImage("skin/" + texturename[file_type].content);
+        if (sl_skin_bottom == null) return false;
+        loaded[sk_bottom_file] = true;
+      }
+      skinMode(true);
     } else if (current_mode == hair_mode) {
-      sl_hair = loadImage("hair/" + filename[file_type]);
+      sl_hair = loadImage("hair/" + texturename[file_type].content);
       if (sl_hair == null) return false;
-      graphHair();
+      loaded[hair_file] = true;
+      hairMode(true);
     } else if (current_mode == eye_mode) {
-      sl_eyes = loadImage("eyes/" + filename[file_type]);
+      sl_eyes = loadImage("eyes/" + texturename[file_type].content);
       if (sl_eyes == null) return false;
-      graphEyes();
+      loaded[eyes_file] = true;
+      eyeMode(true);
+    } else if (current_mode == uv_mode) {
+      uv_texture = loadImage("uv/" + texturename[file_type].content);
+      if (uv_texture == null) return false;
+      loaded[uv_file] = true;
+      uvMode(true);
     }
     saveTemp();
   }
   
   /* Initiate new file or overwrite existing file */
   else if (current_mode == skin_mode ) {
-    if (current_skin == sk_bottom) {
-      sl_skin_bottom = loadImage("blank/Blank-512.png");
+    if (current_skin == sk_head) {
+      sl_skin_head = loadImage("blank/Blank-512.png");
     } else if (current_skin == sk_top) {
       sl_skin_top = loadImage("blank/Blank-512.png");
-    } else if (current_skin == sk_head) {
-      sl_skin_head = loadImage("blank/Blank-512.png");
+    } else if (current_skin == sk_bottom) {
+      sl_skin_bottom = loadImage("blank/Blank-512.png");
     }
     graphSkin();
   } else if (current_mode == hair_mode) {
@@ -972,14 +1213,27 @@ public boolean openNew(boolean openfile) {
   } else if (current_mode == eye_mode) {
     sl_eyes = loadImage("blank/Blank-256.png");
     graphEyes();
+  } else if (current_mode == uv_mode) {
+    uv_texture = loadImage("blank/Blank-512.png");
+    graphUV();
   }
-  
+  return true;
+}
+
+/* Open/Save Alpha channel */
+public boolean openAlpha() {
+  return true;
+}
+
+/* Open UV Base Map */
+public boolean openBaseuv() {
   return true;
 }
 
 /* No Load Box */
 public void noloadBox() {
-  String not_loaded = "Could Not Load File";
+  String not_loaded = "Could Not Load Texture";
+  noStroke();
   fill(12);
   rect(256, 240, 308, 32);
   textFont(font, 18);
@@ -987,28 +1241,44 @@ public void noloadBox() {
   text(not_loaded, 260, 264);
 }
 
+/* No UV Map Box */
+public void noUVBox() {
+  String not_loaded = "Could Not Load UV Map";
+  noStroke();
+  fill(12);
+  rect(256, 280, 308, 32);
+  textFont(font, 18);
+  fill(208);
+  text(not_loaded, 260, 304);
+}
+
 /* Save key command */
 public void saveKey () {
+  if (tab_key) tab_key = false;
   saveTemp();
   if(ctrl_key) {
+    savingBox();
     if (current_mode == skin_mode) {
       for(int i = 0; i < 3; i++) {
         nextKey();
         if (current_skin == sk_head) {
-          sk_canvas.save("data/skin/" + filename[0]);
+          sk_canvas.save("data/skin/" + texturename[0].content);
         } else if (current_skin == sk_top) {
-          sk_canvas.save("data/skin/" + filename[1]);
+          sk_canvas.save("data/skin/" + texturename[1].content);
         } else if (current_skin == sk_head) {
-          sk_canvas.save("data/skin/" + filename[0]);
+          sk_canvas.save("data/skin/" + texturename[2].content);
         }
         savingBox();
       }
     } else if (current_mode == hair_mode) {
       savingBox();
-      hr_canvas.save("data/hair/" + filename[3]);
+      hr_canvas.save("data/hair/" + texturename[3].content);
     } else if (current_mode == eye_mode) {
       savingBox();
-      i_canvas.save("data/eyes/" + filename[4]);
+      i_canvas.save("data/eyes/" + texturename[4].content);
+    } else if (current_mode == uv_mode) {
+      savingBox();
+      uv_canvas.save("data/uv/" + texturename[5].content);
     }
     show_save = true;
   }
@@ -1017,6 +1287,7 @@ public void saveKey () {
 /* Saving Box */
 public void savingBox() {
   String saving = "SAVING";
+  noStroke();
   fill(12);
   rect(256, 240, 308, 32);
   textFont(font, 18);
@@ -1063,11 +1334,15 @@ public void saveTemp () {
   } else if (current_mode == eye_mode) {
     i_canvas.save("data/temp/Sim-Temp-Eyes-256.png");
     sl_eyes = loadImage("temp/Sim-Temp-Eyes-256.png");
+  } else if (current_mode == uv_mode) {
+    uv_canvas.save("data/temp/Sim-Temp-UV-512.png");
+    uv_texture = loadImage("temp/Sim-Temp-UV-512.png");
   }
 }
 
 /* Undo key command */
 public void undoTemp () {
+  if (tab_key) tab_key = false;
   if (current_mode == skin_mode ) {
     if (current_skin == sk_head) {
       sl_skin_head = loadImage("temp/Sim-Temp-Head-512.png");
@@ -1083,9 +1358,256 @@ public void undoTemp () {
   } else if (current_mode == eye_mode) {
     sl_eyes = loadImage("temp/Sim-Temp-Eyes-256.png");
     graphEyes();
+  } else if (current_mode == uv_mode) {
+    uv_texture = loadImage("temp/Sim-Temp-UV-512.png");
+    graphUV();
   }
 }
 
+public void showHelp() {
+  noStroke();
+  textFont(font, 16); 
+  fill(0, 192);
+  rect(0, 0, width, height);
+  String help_txt = "H            - Show/Hide Help screen w/list of key commands\n\nF1           - Skin mode texturing. File's are opened/saved to './data/skin/'\n\nF2           - Hair mode texturing. Files are open/saved to './data/hair/'\n\nF3           - Eyes mode texturing. Files are open/saved to './data/eyes/'\n\nF4           - UV mode texturing. Files are open/saved to './data/uv/'\n\nN            - Next portion of skin In skin mode (head, upper, lower)\n\nB            - Previous portion of skin in skin mode\n\nTAB          - Switch between normal and alpha mode.\n               Edit the alpha channel of a texture using grayscale values; white is opaque; black is transparent (erase)\n\n+/-          - Increase/Decrease the size of the drawing mark (up to 32 pixels wide)\n\nO            - Open file or initiate a New file with the given name\n               To open, the file must be placed in the appropriate folder ( i.e. './data/skin', './data/uv', etc.)\n\nG            - Grab color from canvas (based on position of cursor)\n\nShift + G - Grab grayscale value from canvas (based on position of cursor)\n\nF            - Fill all pixels matching the color at the cursor position with selected color\n\nShift + F - Fill all pixels matching the brightness (whiteness) of the color at the cursor position\n\nS            - Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)\n\nShift + S - Save current canvas to file (normal save)\n\nU            - Undo to last saved state of current canvas\n\nESC          - Quit SimEdit";
+  fill(255);
+  text(help_txt, 8, 14);
+  
+}
+
+/* Get text input from keyboard */
+public void textInput(Textline texttype) {
+  if (time_t >= 4 && keyPressed) {
+    if ((key == BACKSPACE) && (texttype.content.length() > 0)) {
+      time_t = 0;
+      texttype.content = texttype.content.substring(0, (texttype.content.length()-1));
+    } else if (key != CODED) {
+      time_t = 0;
+      switch (key) {
+        case '1':
+          texttype.content = texttype.content + key;
+          break;
+        case '2':
+          texttype.content = texttype.content + key;
+          break;
+        case '3':
+          texttype.content = texttype.content + key;
+          break;
+        case '4':
+          texttype.content = texttype.content + key;
+          break;
+        case '5':
+          texttype.content = texttype.content + key;
+          break;
+        case '6':
+          texttype.content = texttype.content + key;
+          break;
+        case '7':
+          texttype.content = texttype.content + key;
+          break;
+        case '8':
+          texttype.content = texttype.content + key;
+          break;
+        case '9':
+          texttype.content = texttype.content + key;
+          break;
+        case '0':
+          texttype.content = texttype.content + key;
+          break;
+        case '-':
+          texttype.content = texttype.content + key;
+          break;
+        case '_':
+          texttype.content = texttype.content + key;
+          break;
+        case '.':
+          texttype.content = texttype.content + key;
+          break;
+        case '/':
+          texttype.content = texttype.content + key;
+          break;
+        case '(':
+          texttype.content = texttype.content + key;
+          break;
+        case ')':
+          texttype.content = texttype.content + key;
+          break;
+        case '[':
+          texttype.content = texttype.content + key;
+          break;
+        case ']':
+          texttype.content = texttype.content + key;
+          break;
+        case 'q':
+          texttype.content = texttype.content + key;
+          break;
+        case 'Q':
+          texttype.content = texttype.content + key;
+          break;
+        case 'w':
+          texttype.content = texttype.content + key;
+          break;
+        case 'W':
+          texttype.content = texttype.content + key;
+          break;
+        case 'e':
+          texttype.content = texttype.content + key;
+          break;
+        case 'E':
+          texttype.content = texttype.content + key;
+          break;
+        case 'r':
+          texttype.content = texttype.content + key;
+          break;
+        case 'R':
+          texttype.content = texttype.content + key;
+          break;
+        case 't':
+          texttype.content = texttype.content + key;
+          break;
+        case 'T':
+          texttype.content = texttype.content + key;
+          break;
+        case 'y':
+          texttype.content = texttype.content + key;
+          break;
+        case 'Y':
+          texttype.content = texttype.content + key;
+          break;
+        case 'u':
+          texttype.content = texttype.content + key;
+          break;
+        case 'U':
+          texttype.content = texttype.content + key;
+          break;
+        case 'i':
+          texttype.content = texttype.content + key;
+          break;
+        case 'I':
+          texttype.content = texttype.content + key;
+          break;
+        case 'o':
+          texttype.content = texttype.content + key;
+          break;
+        case 'O':
+          texttype.content = texttype.content + key;
+          break;
+        case 'p':
+          texttype.content = texttype.content + key;
+          break;
+        case 'P':
+          texttype.content = texttype.content + key;
+          break;
+        case 'a':
+          texttype.content = texttype.content + key;
+          break;
+        case 'A':
+          texttype.content = texttype.content + key;
+          break;
+        case 's':
+          texttype.content = texttype.content + key;
+          break;
+        case 'S':
+          texttype.content = texttype.content + key;
+          break;
+        case 'd':
+          texttype.content = texttype.content + key;
+          break;
+        case 'D':
+          texttype.content = texttype.content + key;
+          break;
+        case 'f':
+          texttype.content = texttype.content + key;
+          break;
+        case 'F':
+          texttype.content = texttype.content + key;
+          break;
+        case 'g':
+          texttype.content = texttype.content + key;
+          break;
+        case 'G':
+          texttype.content = texttype.content + key;
+          break;
+        case 'h':
+          texttype.content = texttype.content + key;
+          break;
+        case 'H':
+          texttype.content = texttype.content + key;
+          break;
+        case 'j':
+          texttype.content = texttype.content + key;
+          break;
+        case 'J':
+          texttype.content = texttype.content + key;
+          break;
+        case 'k':
+          texttype.content = texttype.content + key;
+          break;
+        case 'K':
+          texttype.content = texttype.content + key;
+          break;
+        case 'l':
+          texttype.content = texttype.content + key;
+          break;
+        case 'L':
+          texttype.content = texttype.content + key;
+          break;
+        case 'z':
+          texttype.content = texttype.content + key;
+          break;
+        case 'Z':
+          texttype.content = texttype.content + key;
+          break;
+        case 'x':
+          texttype.content = texttype.content + key;
+          break;
+        case 'X':
+          texttype.content = texttype.content + key;
+          break;
+        case 'c':
+          texttype.content = texttype.content + key;
+          break;
+        case 'C':
+          texttype.content = texttype.content + key;
+          break;
+        case 'v':
+          texttype.content = texttype.content + key;
+          break;
+        case 'V':
+          texttype.content = texttype.content + key;
+          break;
+        case 'b':
+          texttype.content = texttype.content + key;
+          break;
+        case 'B':
+          texttype.content = texttype.content + key;
+          break;
+        case 'n':
+          texttype.content = texttype.content + key;
+          break;
+        case 'N':
+          texttype.content = texttype.content + key;
+          break;
+        case 'm':
+          texttype.content = texttype.content + key;
+          break;
+        case 'M':
+          texttype.content = texttype.content + key;
+          break;
+        case ' ':
+          texttype.content = texttype.content + key;
+          break; 
+      }
+    }
+  }
+}
+
+public class Textline {
+  String content;
+  public Textline (String init) {
+    content = init;
+  }
+}
   static public void main(String args[]) {
     PApplet.main(new String[] { "--bgcolor=#C0C0C0", "SimEdit" });
   }
