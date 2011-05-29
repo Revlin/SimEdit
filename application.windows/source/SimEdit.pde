@@ -319,7 +319,7 @@ void draw() {
       uvMode(true);
     } 
     
-    else if (current_mode == skin_mode) {
+    else if ((current_mode == skin_mode) && (!tab_key)) {
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
@@ -359,7 +359,7 @@ void draw() {
       }
     }
     
-    else if (current_mode == hair_mode) {
+    else if ((current_mode == hair_mode) && (!tab_key)) {
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
@@ -391,7 +391,7 @@ void draw() {
       }
     }
     
-    else if (current_mode == eye_mode) {
+    else if ((current_mode == eye_mode) && (!tab_key)) {
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
@@ -423,7 +423,7 @@ void draw() {
       }
     }
     
-    else if (current_mode == uv_mode) {
+    else if ((current_mode == uv_mode) && (!tab_key)) {
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
@@ -764,6 +764,7 @@ void showAlpha(PGraphics canvas, boolean init) {
 
 /* Graph Skin to Background */
 void graphSkin() {
+  noStroke();
   sk_canvas = createGraphics(512, 512,JAVA2D);
   sk_canvas.beginDraw();
   if (current_skin == sk_bottom) {
@@ -782,6 +783,7 @@ void graphSkin() {
 
 /* Graph Hair to Background */
 void graphHair() {
+  noStroke();
   hr_canvas = createGraphics(512, 512, JAVA2D);
   fill(255);
   rect(0, 0, 768, 768);
@@ -794,6 +796,7 @@ void graphHair() {
 
 /* Graph Eyes to Background */
 void graphEyes() {
+  noStroke();
   i_canvas = createGraphics(256, 256, JAVA2D);
   image(sl_base_eyes, 0, 0, 768, 768);
   i_canvas.beginDraw();
@@ -804,7 +807,10 @@ void graphEyes() {
 
 /* Graph UV Texture to Background */
 void graphUV() {
+  noStroke();
   uv_canvas = createGraphics(uv_map_size, uv_map_size, JAVA2D);
+  fill(255);
+  rect(0, 0, 768, 768);
   image(uv_base_map, 0, 0, 768, 768);
   uv_canvas.beginDraw();
   uv_canvas.image(uv_texture, 0, 0);
@@ -1031,6 +1037,11 @@ void openDialogue(boolean init) {
     fill(255);
     if (mousePressed) {
       if (current_mode == uv_mode && uv_map_type == uv_custom) {
+        /* Check that the uv map name is valid */
+        String uv_ext = uv_map_name.content.substring((uv_map_name.content.length() - 4));
+        if ((!uv_ext.equals(".png")) && (!uv_ext.equals(".jpg")) && (!uv_ext.equals(".tga")) ){
+        uv_map_name.content = uv_map_name.content + ".png";
+        }
         uv_base_map = loadImage("uv/" + uv_map_name.content);
         if (uv_base_map == null) {
           uv_base_map = loadImage("uv/UV-Grid-512.png");
@@ -1057,6 +1068,20 @@ void openDialogue(boolean init) {
   if(mouseX > 692 && mouseX < 730 && mouseY > 248 && mouseY < 266) {
     fill(255);
     if (mousePressed) { 
+      if (current_mode == uv_mode && uv_map_type == uv_custom) {
+        /* Check that the uv map name is valid */
+        String uv_ext = uv_map_name.content.substring((uv_map_name.content.length() - 4));
+        if ((!uv_ext.equals(".png")) && (!uv_ext.equals(".jpg")) && (!uv_ext.equals(".tga")) ){
+        uv_map_name.content = uv_map_name.content + ".png";
+        }
+        uv_base_map = loadImage("uv/" + uv_map_name.content);
+        if (uv_base_map == null) {
+          uv_base_map = loadImage("uv/UV-Grid-512.png");
+          noUVBox();
+          no_load = true;
+          return;
+        }
+      }
       if (current_mode == skin_mode) {
         if (current_skin == 0) {
           loaded[sk_head_file] = true;
