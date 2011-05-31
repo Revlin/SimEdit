@@ -31,6 +31,9 @@ byte hair_mode = 1;
 byte eye_mode = 2;
 byte uv_mode = 3;
 int current_clr;
+int clr_tone;
+int clr_hue;
+int clr_sat;
 boolean show_help = false;
 boolean no_load = false;
 boolean show_save = false;
@@ -338,139 +341,267 @@ public void draw() {
       uvMode(true);
     } 
     
-    else if ((current_mode == skin_mode) && (!tab_key)) {
+    else if (current_mode == skin_mode) {
+      if (!tab_key) {
+        if (key == 'n' || key == 'N') {
+          nextKey();
+          ctrl_key = false;
+        }
+        if (key == 'b' || key == 'B') {
+          backKey();
+          ctrl_key = false;
+        }
+        if (key == 'f' || key == 'F') {
+          if (key == 'F') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorFill(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 'g' || key == 'G') {
+          if (key == 'G') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorGrab(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 's' || key == 'S') {
+          if (key == 'S') ctrl_key = true;
+          saveKey(); 
+          ctrl_key = false;
+        }
+        if (key == 'u' || key == 'U') {
+          undoTemp(); 
+          ctrl_key = false;
+        }
+        if (key == '0') {
+          setTone(1.0f);
+        }
+        if (key == '1') {
+          setTone(0.1f);
+        }
+        if (key == '2') {
+          setTone(0.2f);
+        }
+        if (key == '3') {
+          setTone(0.3f);
+        }
+        if (key == '4') {
+          setTone(0.4f);
+        }
+        if (key == '5') {
+          setTone(0.5f);
+        }
+        if (key == '6') {
+          setTone(0.6f);
+        }
+        if (key == '7') {
+          setTone(0.7f);
+        }
+        if (key == '8') {
+          setTone(0.8f);
+        }
+        if (key == '9') {
+          setTone(0.9f);
+        }
+      } 
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
       if ((key == '-') && (mark_size > 1)) {
         mark_size = (byte)(mark_size/2);
-      }
-      if (key == 'n' || key == 'N') {
-        nextKey();
-        ctrl_key = false;
-      }
-      if (key == 'b' || key == 'B') {
-        backKey();
-        ctrl_key = false;
-      }
-      if (key == 'f' || key == 'F') {
-        if (key == 'F') ctrl_key = true;
-        if (mouseX < 768 && mouseY < 768) {
-          colorFill(sk_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 'g' || key == 'G') {
-        if (key == 'G') ctrl_key = true;
-        if (mouseX < 768 && mouseY < 768) {
-          colorGrab(sk_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 's' || key == 'S') {
-        if (key == 'S') ctrl_key = true;
-        saveKey(); 
-        ctrl_key = false;
-      }
-      if (key == 'u' || key == 'U') {
-        undoTemp(); 
-        ctrl_key = false;
       }
     }
     
-    else if ((current_mode == hair_mode) && (!tab_key)) {
+    else if (current_mode == hair_mode) {
+      if (!tab_key) {
+        if (key == 'f' || key == 'F') {
+          if (key == 'F') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorFill(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 'g' || key == 'G') {
+          if (key == 'G') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorGrab(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 's' || key == 'S') {
+          if (key == 'S') ctrl_key = true;
+          saveKey(); 
+          ctrl_key = false;
+        }
+        if (key == 'u' || key == 'U') {
+          undoTemp(); 
+          ctrl_key = false;
+        }
+        if (key == '0') {
+          setTone(1.0f);
+        }
+        if (key == '1') {
+          setTone(0.1f);
+        }
+        if (key == '2') {
+          setTone(0.2f);
+        }
+        if (key == '3') {
+          setTone(0.3f);
+        }
+        if (key == '4') {
+          setTone(0.4f);
+        }
+        if (key == '5') {
+          setTone(0.5f);
+        }
+        if (key == '6') {
+          setTone(0.6f);
+        }
+        if (key == '7') {
+          setTone(0.7f);
+        }
+        if (key == '8') {
+          setTone(0.8f);
+        }
+        if (key == '9') {
+          setTone(0.9f);
+        }
+      } 
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
       if ((key == '-') && (mark_size > 1)) {
         mark_size = (byte)(mark_size/2);
-      }
-      if (key == 'f' || key == 'F') {
-        if (mouseX < 768 && mouseY < 768) {
-          if (key == 'F') ctrl_key = true;
-          colorFill(hr_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 'g' || key == 'G') {
-        if (key == 'G') ctrl_key = true;
-        if (mouseX < 768 && mouseY < 768) {
-          colorGrab(hr_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 's' || key == 'S') {
-        if (key == 'S') ctrl_key = true;
-        saveKey(); 
-        ctrl_key = false;
-      }
-      if (key == 'u' || key == 'U') {
-        undoTemp(); 
-        ctrl_key = false;
       }
     }
     
-    else if ((current_mode == eye_mode) && (!tab_key)) {
+    else if (current_mode == eye_mode) {
+      if (!tab_key) {
+        if (key == 'f' || key == 'F') {
+          if (key == 'F') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorFill(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 'g' || key == 'G') {
+          if (key == 'G') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorGrab(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 's' || key == 'S') {
+          if (key == 'S') ctrl_key = true;
+          saveKey(); 
+          ctrl_key = false;
+        }
+        if (key == 'u' || key == 'U') {
+          undoTemp(); 
+          ctrl_key = false;
+        }
+        if (key == '0') {
+          setTone(1.0f);
+        }
+        if (key == '1') {
+          setTone(0.1f);
+        }
+        if (key == '2') {
+          setTone(0.2f);
+        }
+        if (key == '3') {
+          setTone(0.3f);
+        }
+        if (key == '4') {
+          setTone(0.4f);
+        }
+        if (key == '5') {
+          setTone(0.5f);
+        }
+        if (key == '6') {
+          setTone(0.6f);
+        }
+        if (key == '7') {
+          setTone(0.7f);
+        }
+        if (key == '8') {
+          setTone(0.8f);
+        }
+        if (key == '9') {
+          setTone(0.9f);
+        }
+      } 
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
       if ((key == '-') && (mark_size > 1)) {
         mark_size = (byte)(mark_size/2);
-      }
-      if (key == 'f' || key == 'F') {
-        if (mouseX < 768 && mouseY < 768) {
-          if (key == 'F') ctrl_key = true;
-          colorFill(i_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 'g' || key == 'G') {
-        if (key == 'G') ctrl_key = true;
-        if (mouseX < 768 && mouseY < 768) {
-          colorGrab(i_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 's' || key == 'S') {
-        if (key == 'S') ctrl_key = true;
-        saveKey(); 
-        ctrl_key = false;
-      }
-      if (key == 'u' || key == 'U') {
-        undoTemp(); 
-        ctrl_key = false;
       }
     }
     
-    else if ((current_mode == uv_mode) && (!tab_key)) {
+    else if (current_mode == uv_mode) {
+      if (!tab_key) {
+        if (key == 'f' || key == 'F') {
+          if (key == 'F') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorFill(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 'g' || key == 'G') {
+          if (key == 'G') ctrl_key = true;
+          if (mouseX < 768 && mouseY < 768) {
+            colorGrab(sk_canvas); 
+            ctrl_key = false;
+          }
+        }
+        if (key == 's' || key == 'S') {
+          if (key == 'S') ctrl_key = true;
+          saveKey(); 
+          ctrl_key = false;
+        }
+        if (key == 'u' || key == 'U') {
+          undoTemp(); 
+          ctrl_key = false;
+        }
+        if (key == '0') {
+          setTone(1.0f);
+        }
+        if (key == '1') {
+          setTone(0.1f);
+        }
+        if (key == '2') {
+          setTone(0.2f);
+        }
+        if (key == '3') {
+          setTone(0.3f);
+        }
+        if (key == '4') {
+          setTone(0.4f);
+        }
+        if (key == '5') {
+          setTone(0.5f);
+        }
+        if (key == '6') {
+          setTone(0.6f);
+        }
+        if (key == '7') {
+          setTone(0.7f);
+        }
+        if (key == '8') {
+          setTone(0.8f);
+        }
+        if (key == '9') {
+          setTone(0.9f);
+        }
+      } 
       if ((key == '+') && (mark_size < 32)) {
         mark_size = (byte)(mark_size*2);
       }
       if ((key == '-') && (mark_size > 1)) {
         mark_size = (byte)(mark_size/2);
-      }
-      if (key == 'f' || key == 'F') {
-        if (mouseX < 768 && mouseY < 768) {
-          if (key == 'F') ctrl_key = true;
-          colorFill(uv_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 'g' || key == 'G') {
-        if (key == 'G') ctrl_key = true;
-        if (mouseX < 768 && mouseY < 768) {
-          colorGrab(uv_canvas); 
-          ctrl_key = false;
-        }
-      }
-      if (key == 's' || key == 'S') {
-        if (key == 'S') ctrl_key = true;
-        saveKey(); 
-        ctrl_key = false;
-      }
-      if (key == 'u' || key == 'U') {
-        undoTemp(); 
-        ctrl_key = false;
       }
     }
     
@@ -755,12 +886,15 @@ public void showAlpha(PGraphics canvas, boolean init) {
   }
   
   else {
-  
-    getColor();
-    showColor();
+    
+    if (!drawing) {
+      getColor();
+      showColor();
+    }
   
     /*Draw on a_canvas*/
     if (mousePressed && (mouseX < 768)) {
+      drawing = true;
       noCursor();
       a_canvas.beginDraw();
       a_canvas.colorMode(HSB, 256);
@@ -874,6 +1008,9 @@ public void getColor() {
     } else {
       current_clr = color(h_clr, s_clr, b_clr);
     }
+    clr_tone = b_clr;
+    clr_hue = h_clr;
+    clr_sat = s_clr;
   }
 }
 
@@ -887,6 +1024,12 @@ public void showColor () {
   stroke(current_clr);
   strokeWeight(mark_size);
   line(800, 256, 1024, 256); 
+}
+
+/* Change tone of current color*/
+public void setTone(float t) {
+  int b = (int)(clr_tone * t);
+  current_clr = color(clr_hue, clr_sat, b);
 }
 
 /* Save Alpha channel */
@@ -918,10 +1061,10 @@ public void colorFill(PGraphics canvas) {
     for (int i = 0; i < 768; i++) {
       for (int j = 0; j < 768; j++) {
         int z = pixels[(i + j * width)];
-        if ((brightness(z) <= brightness(fill_clr) + 127) && (brightness(z) >= brightness(fill_clr) - 127)) {
-           if(ctrl_key && (brightness(z) <= brightness(fill_clr) + 15) && (brightness(z) >= brightness(fill_clr) - 15) && (saturation(z) <= 32) ) { 
+        if ((brightness(z) <= brightness(fill_clr) + 63) && (brightness(z) >= brightness(fill_clr) - 63)) {
+           if(ctrl_key && (brightness(z) <= brightness(fill_clr) + 15) && (brightness(z) >= brightness(fill_clr) - 15) && (saturation(z) <= 31) ) { 
             tmp_canvas.pixels[((int)(i/offx) + (int)(j/offy) * offw)] = current_clr;
-          } else if ((hue(z) <= hue(fill_clr) + 3) && (hue(z) >= hue(fill_clr) - 3) && (saturation(z) <= saturation(fill_clr) + 3) && (saturation(z) >= saturation(fill_clr) - 3) && (brightness(z) <= brightness(fill_clr) + 15) && (brightness(z) >= brightness(fill_clr) - 15)) {
+          } else if ((hue(z) <= hue(fill_clr) + 1) && (hue(z) >= hue(fill_clr) - 1) && (saturation(z) <= saturation(fill_clr) + 7) && (saturation(z) >= saturation(fill_clr) - 7)) {
             tmp_canvas.pixels[((int)(i/offx) + (int)(j/offy) * offw)] = current_clr;
           }
         }
@@ -1394,7 +1537,7 @@ public void showHelp() {
   textFont(font, 16); 
   fill(0, 192);
   rect(0, 0, width, height);
-  String help_txt = "H            - Show/Hide Help screen w/list of key commands\n\nF1           - Skin mode texturing. File's are opened/saved to './data/skin/'\n\nF2           - Hair mode texturing. Files are open/saved to './data/hair/'\n\nF3           - Eyes mode texturing. Files are open/saved to './data/eyes/'\n\nF4           - UV mode texturing. Files are open/saved to './data/uv/'\n\nN            - Next portion of skin In skin mode (head, upper, lower)\n\nB            - Previous portion of skin in skin mode\n\nTAB          - Switch between normal and alpha mode.\n               Edit the alpha channel of a texture using grayscale values; white is opaque; black is transparent (erase)\n\n+/-          - Increase/Decrease the size of the drawing mark (up to 32 pixels wide)\n\nO            - Open file or initiate a New file with the given name\n               To open, the file must be placed in the appropriate folder ( i.e. './data/skin', './data/uv', etc.)\n\nG            - Grab color from canvas (based on position of cursor)\n\nShift + G - Grab grayscale value from canvas (based on position of cursor)\n\nF            - Fill all pixels matching the color at the cursor position with selected color\n\nShift + F - Fill all pixels matching the brightness (whiteness) of the color at the cursor position\n\nS            - Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)\n\nShift + S - Save current canvas to file (normal save)\n\nU            - Undo to last saved state of current canvas\n\nESC          - Quit SimEdit";
+  String help_txt = "H              - Show/Hide Help screen w/list of key commands\n\nNum 0..9 - Change the tone (darkness) of current color. 1 to 9 is darkest to lightest; 0 resets to original\n\n+/-          - Increase/Decrease the size of the drawing mark (up to 32 pixels wide)\n\nO              - Open file or initiate a New file with the given name\n                 To open, the file must be placed in the appropriate folder ( i.e. './data/skin', './data/uv', etc.)\n\nG              - Grab color from canvas (based on position of cursor)\n\nShift + G  - Grab grayscale value from canvas (based on position of cursor)\n\nF               - Fill all pixels matching the color at the cursor position with selected color\n\nShift + F   - Fill all pixels matching the brightness (whiteness) of the color at the cursor position\n\nS               - Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)\n\nShift + S   - Save current canvas to file (normal save)\n\nU               - Undo to last saved state of current canvas\n\nF1             - Skin mode texturing. File's are opened/saved to './data/skin/'\n\nN/B          - Next/Previous portion of skin in skin mode (head, upper, lower)\n\nF2            - Hair mode texturing. Files are open/saved to './data/hair/'\n\nF3             - Eyes mode texturing. Files are open/saved to './data/eyes/'\n\nF4             - UV mode texturing. Files are open/saved to './data/uv/'\n\nTAB          - Switch between normal and alpha mode.\n                 Edit the alpha channel of a texture using grayscale values; white is opaque; black is transparent (erase)\n\nESC            - Quit SimEdit";
   fill(255);
   text(help_txt, 8, 14);
   

@@ -24,27 +24,15 @@ NOTE: Windows version places the 'data' folder in 'application.windows'.
 
 Controls:
 
-Briefly. when editing textures, mouse press draws to the main canvas with the currently selected color. All you get is a blunt mark, so work slow and attentively  ;-). The selected color is shown in a triangle to the right of the canvas, in between the two color palettes. Mouse press within the palettes will select the color that the cursor is on. Holding 'SHIFT' and clicking in the palette will give a grayscale value of the color, which is only useful with the top palette because the bottom one has a constant brightness range (all colors in the bottom palette are the same brightness value). 
+Briefly: when editing textures, mouse press draws to the main canvas with the currently selected color. All you get is a blunt mark, so work slow and attentively  ;-). The selected color is shown in a triangle to the right of the canvas, in between the two color palettes. Mouse press within the palettes will select the color that the cursor is on. Holding 'SHIFT' and clicking in the palette will give a grayscale value of the color, which is only useful with the top palette because the bottom one has a constant brightness range (all colors in the bottom palette are the same brightness value). 
 
 H	- Show/Hide Help screen w/list of key commands
 
-F1	- Skin mode texturing. File's are opened/saved to './data/skin/'
-
-F2	- Hair mode texturing. Files are open/saved to './data/hair/'
-
-F3	- Eyes mode texturing. Files are open/saved to './data/eyes/'
-
-F4 	- UV mode texturing. Files are open/saved to './data/uv/'
-
-N 	- Next portion of skin In skin mode (head, upper, lower)
-
-B 	- Previous portion of skin in skin mode
-
-TAB 	- Switch between normal and alpha mode. 
-	   Edit the alpha channel of a texture using grayscale values
-	   White is opaque; Black is transparent (erase)
+Num 0...9	- Changethe tone (darkness) of current color. 1 to 9 is darkest to lightest; 0 resets to original
 
 +/-	- Increase/Decrease the size of the drawing mark (up to 32 pixels wide)
+
+N/B 	- Next/Previous portion of skin In skin mode (head, upper, lower)
 
 O	- Open file or initiate a New file with the given name 
 	   To open, the file must be placed in the appropriate folder ( i.e. './data/skin', './data/uv', etc.)
@@ -62,6 +50,18 @@ S 	- Temporarily save canvas for later retrieval via undo (see below; this does 
 Shift + S 	- Save current canvas to file (normal save)
 
 U 	- Undo to last saved state of current canvas
+
+F1	- Skin mode texturing. File's are opened/saved to './data/skin/'
+
+F2	- Hair mode texturing. Files are open/saved to './data/hair/'
+
+F3	- Eyes mode texturing. Files are open/saved to './data/eyes/'
+
+F4 	- UV mode texturing. Files are open/saved to './data/uv/'
+
+TAB 	- Switch between normal and alpha mode. 
+	   Edit the alpha channel of a texture using grayscale values
+	   White is opaque; Black is transparent (erase)
 
 ESC	- Quit SimEdit
 
