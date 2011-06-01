@@ -66,6 +66,9 @@ PImage sl_base_eyes;
 /* UV mode vars */
 Textline uv_map_name;
 int uv_map_size = 512;
+int uv_map_x = 0;
+int uv_map_y = 0;
+boolean uv_trace = false;
 byte uv_map_type = 0;
 byte uv_grid = 0;
 byte uv_box = 1;
@@ -399,14 +402,14 @@ void draw() {
         if (key == 'f' || key == 'F') {
           if (key == 'F') ctrl_key = true;
           if (mouseX < 768 && mouseY < 768) {
-            colorFill(sk_canvas); 
+            colorFill(hr_canvas); 
             ctrl_key = false;
           }
         }
         if (key == 'g' || key == 'G') {
           if (key == 'G') ctrl_key = true;
           if (mouseX < 768 && mouseY < 768) {
-            colorGrab(sk_canvas); 
+            colorGrab(hr_canvas); 
             ctrl_key = false;
           }
         }
@@ -463,14 +466,14 @@ void draw() {
         if (key == 'f' || key == 'F') {
           if (key == 'F') ctrl_key = true;
           if (mouseX < 768 && mouseY < 768) {
-            colorFill(sk_canvas); 
+            colorFill(i_canvas); 
             ctrl_key = false;
           }
         }
         if (key == 'g' || key == 'G') {
           if (key == 'G') ctrl_key = true;
           if (mouseX < 768 && mouseY < 768) {
-            colorGrab(sk_canvas); 
+            colorGrab(i_canvas); 
             ctrl_key = false;
           }
         }
@@ -527,14 +530,14 @@ void draw() {
         if (key == 'f' || key == 'F') {
           if (key == 'F') ctrl_key = true;
           if (mouseX < 768 && mouseY < 768) {
-            colorFill(sk_canvas); 
+            colorFill(uv_canvas); 
             ctrl_key = false;
           }
         }
         if (key == 'g' || key == 'G') {
           if (key == 'G') ctrl_key = true;
           if (mouseX < 768 && mouseY < 768) {
-            colorGrab(sk_canvas); 
+            colorGrab(uv_canvas); 
             ctrl_key = false;
           }
         }
@@ -841,6 +844,7 @@ void uvMode(boolean mode_init) {
       strkD = mouseY/offy;
       uv_canvas.line(strkA, strkB, strkC, strkD);
       line(oldMX, oldMY, mouseX, mouseY);
+      uv_trace = false;
       uv_canvas.endDraw();
     }
   }
@@ -945,7 +949,7 @@ void graphUV() {
   uv_canvas = createGraphics(uv_map_size, uv_map_size, JAVA2D);
   fill(255);
   rect(0, 0, 768, 768);
-  image(uv_base_map, 0, 0, 768, 768);
+  image(uv_base_map, uv_map_x, uv_map_y, (uv_map_x + 768), (uv_map_y + 768));
   uv_canvas.beginDraw();
   uv_canvas.image(uv_texture, 0, 0);
   uv_canvas.endDraw();
@@ -1414,7 +1418,7 @@ void saveKey () {
           sk_canvas.save("data/skin/" + texturename[0].content);
         } else if (current_skin == sk_top) {
           sk_canvas.save("data/skin/" + texturename[1].content);
-        } else if (current_skin == sk_head) {
+        } else if (current_skin == sk_bottom) {
           sk_canvas.save("data/skin/" + texturename[2].content);
         }
         savingBox();
