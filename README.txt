@@ -1,5 +1,6 @@
-/* Sim Asset Editor by  Revlin John (2011) - stylogicalmaps@gmail.com http://stylogicalmaps.blogspot.com */
-/* Please share under CC-Attribution-ShareAlike-3.0 (US) http://creativecommons.org/licenses/by-sa/3.0/ */
+/* Sim Asset Editor by  Revlin John (2011) - stylogicalmaps@gmail.com http://stylogicalmaps.blogspot.com 
+ * Please share under CC-Attribution-ShareAlike-3.0 (US) http://creativecommons.org/licenses/by-sa/3.0/
+ */
 
 Purpose:
 
