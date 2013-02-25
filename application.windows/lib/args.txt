@@ -1,3 +1,0 @@
- -Xms64m -Xmx256m
-SimEdit
-SimEdit.jar,core.jar

@@ -1,5 +1,6 @@
-/* Sim Asset Editor by  Revlin John (2011) - stylogicalmaps@gmail.com http://stylogicalmaps.blogspot.com */
-/* Please share under CC-Attribution-ShareAlike-3.0 (US) http://creativecommons.org/licenses/by-sa/3.0/ */
+/* Sim Asset Editor by  Revlin John (2011) - stylogicalmaps@gmail.com http://stylogicalmaps.blogspot.com 
+ * Please share under CC-Attribution-ShareAlike-3.0 (US) http://creativecommons.org/licenses/by-sa/3.0/
+ */
 
 /* Global variables */
 int time_t = 0;
@@ -1755,9 +1756,3 @@ void textInput(Textline texttype) {
   }
 }
 
-public class Textline {
-  String content;
-  public Textline (String init) {
-    content = init;
-  }
-}
