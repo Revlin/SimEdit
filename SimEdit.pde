@@ -1,5 +1,7 @@
-/* Sim Asset Editor by  Revlin John (2011) - stylogicalmaps@gmail.com http://stylogicalmaps.blogspot.com 
- * Please share under CC-Attribution-ShareAlike-3.0 (US) http://creativecommons.org/licenses/by-sa/3.0/
+/* Sim Asset Editor by  Revlin John (2011) - stylogicalmaps@gmail.com
+ * http://stymaps.universalsoldier.ca
+ * Please share under CC-Attribution-ShareAlike-3.0 (US)
+ * http://creativecommons.org/licenses/by-sa/3.0/
  */
 
 /* Global variables */
@@ -32,7 +34,7 @@ byte mark_size = 2;
 PFont font;
 boolean[] loaded = { false, false, false, false, false, false };
 Textline texturename[] = new Textline[6];
-Textline alphaname;;
+Textline alphaname;
 byte file_type = 0;
 byte sk_head_file = 0;
 byte sk_top_file = 1;
@@ -670,7 +672,8 @@ void skinMode(boolean mode_init) {
     }
   
     /*Draw on sk_canvas*/
-    if (mousePressed && (mouseX < 768)) {
+    //if (mousePressed && (mouseX < 768)) {
+    if ( (mouseX < 768) && (mouseY < 768) &&(keyPressed) && ((key == ' ')||(key == ENTER)) ) {
       drawing = true;
       noCursor();
       sk_canvas.beginDraw();
@@ -959,17 +962,17 @@ void graphUV() {
 
 /* Draw Pallette in side bar */
 void drawPallette() {
-  p_canvas = createGraphics(256, 768, JAVA2D);
+  p_canvas = createGraphics(256, 512, JAVA2D);
   p_canvas.beginDraw();
   p_canvas.noStroke();
   p_canvas.colorMode(HSB, 256);
   for (int i = 0; i < 255; i++) {
     for (int j = 0; j < 255; j++) {
       p_canvas.stroke(j, i, 255 - i);
-      p_canvas.point((i),j);
+      p_canvas.point(i,j);
       p_canvas.stroke(j, i, (255 - (int)(i/2)));
       for (int z = 0; z < 2; z++) {
-        p_canvas.point((i),2*j+z+256);
+        p_canvas.point(i,j+z+256);
       }
     }
   }
@@ -985,7 +988,7 @@ void getColor() {
       h_clr = mouseY; 
       b_clr = 1024 - mouseX;
     } else {
-      h_clr = (mouseY - 256)/2;
+      h_clr = (mouseY - 256);
       b_clr = 255;
     }
     if (keyPressed && key == CODED && keyCode == KeyEvent.VK_SHIFT) { 
@@ -1520,12 +1523,12 @@ void undoTemp () {
 
 void showHelp() {
   noStroke();
-  textFont(font, 16); 
+  textFont(font, 14); 
   fill(0, 192);
   rect(0, 0, width, height);
-  String help_txt = "H              - Show/Hide Help screen w/list of key commands\n\nNum 0..9 - Change the tone (darkness) of current color. 1 to 9 is darkest to lightest; 0 resets to original\n\n+/-          - Increase/Decrease the size of the drawing mark (up to 32 pixels wide)\n\nO              - Open file or initiate a New file with the given name\n                 To open, the file must be placed in the appropriate folder ( i.e. './data/skin', './data/uv', etc.)\n\nG              - Grab color from canvas (based on position of cursor)\n\nShift + G  - Grab grayscale value from canvas (based on position of cursor)\n\nF               - Fill all pixels matching the color at the cursor position with selected color\n\nShift + F   - Fill all pixels matching the brightness (whiteness) of the color at the cursor position\n\nS               - Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)\n\nShift + S   - Save current canvas to file (normal save)\n\nU               - Undo to last saved state of current canvas\n\nF1             - Skin mode texturing. File's are opened/saved to './data/skin/'\n\nN/B          - Next/Previous portion of skin in skin mode (head, upper, lower)\n\nF2            - Hair mode texturing. Files are open/saved to './data/hair/'\n\nF3             - Eyes mode texturing. Files are open/saved to './data/eyes/'\n\nF4             - UV mode texturing. Files are open/saved to './data/uv/'\n\nTAB          - Switch between normal and alpha mode.\n                 Edit the alpha channel of a texture using grayscale values; white is opaque; black is transparent (erase)\n\nESC            - Quit SimEdit";
+  String help_txt = "ESC           - Quit SimEdit\n\nH              - Show/Hide Help screen w/list of key commands\n\nSPACE       - Mark/Draw on main canvas\n\nNum 0..9 - Change the tone (darkness) of current color. 1 to 9 is darkest to lightest; 0 resets to original\n\n+/-          - Increase/Decrease the size of the drawing mark (up to 32 pixels wide)\n\nO              - Open file or initiate a New file with the given name\n                 To open, the file must be placed in the appropriate folder ( i.e. './data/skin', './data/uv', etc.)\n\nG              - Grab color from canvas (based on position of cursor)\n\nShift + G  - Grab grayscale value from canvas (based on position of cursor)\n\nF               - Fill all pixels matching the color at the cursor position with selected color\n\nShift + F   - Fill all pixels matching the brightness (whiteness) of the color at the cursor position\n\nS               - Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)\n\nShift + S   - Save current canvas to file (normal save)\n\nU               - Undo to last saved state of current canvas\n\nF1/F2/F3/F4 - Skin/Hair/Eyes/UV modes. File's are opened/saved to './data/skin/' or\n                 './data/hair/' or './data/eyes/' or './data/uv/' repsective of each mode\n\nN/B          - Next/Previous portion of skin in skin mode (head, upper, lower)\n\nTAB          - Switch between normal and alpha mode.\n                 Edit the alpha channel of a texture using grayscale values; white is opaque; black is transparent (erase)";
   fill(255);
-  text(help_txt, 8, 14);
+  text(help_txt, 8, 48);
   
 }
 
