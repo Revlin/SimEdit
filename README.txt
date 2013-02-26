@@ -33,14 +33,13 @@ ESC		- Quit SimEdit
 
 H		- Show/Hide Help screen w/list of key commands
 
-SPACE	- Mark/Draw on main canvas
+SPACE		- Mark/Draw on main canvas
 ENTER
 
-Num 0...9	- Changethe tone (darkness) of current color. 1 to 9 is darkest to lightest; 0 resets to original
+Num 0...9	- Changethe tone (darkness) of current color. 
+		1 to 9 is darkest to lightest; 0 resets to original
 
 +/-		- Increase/Decrease the size of the drawing mark (up to 32 pixels wide)
-
-N/B 	- Next/Previous portion of skin In skin mode (head, upper, lower)
 
 O		- Open file or initiate a New file with the given name 
 	   To open, the file must be placed in the appropriate folder ( i.e. './data/skin', './data/uv', etc.)
@@ -53,19 +52,21 @@ F 		- Fill all pixels matching the color at the cursor position with selected co
 
 Shift + F 	- Fill all pixels matching the brightness (whiteness) of the color at the cursor position
 
-S 	- Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)
+S 		- Temporarily save canvas for later retrieval via undo (see below; this does NOT save to file)
 
 Shift + S 	- Save current canvas to file (normal save)
 
-U 	- Undo to last saved state of current canvas
+U 		- Undo to last saved state of current canvas
 
-F1	- Skin mode texturing. File's are opened/saved to './data/skin/'
+F1		- Skin mode texturing. File's are opened/saved to './data/skin/'
 
-F2	- Hair mode texturing. Files are open/saved to './data/hair/'
+N/B 		- Next/Previous portion of skin In skin mode (head, upper, lower)
 
-F3	- Eyes mode texturing. Files are open/saved to './data/eyes/'
+F2		- Hair mode texturing. Files are open/saved to './data/hair/'
 
-F4 	- UV mode texturing. Files are open/saved to './data/uv/'
+F3		- Eyes mode texturing. Files are open/saved to './data/eyes/'
+
+F4 		- UV mode texturing. Files are open/saved to './data/uv/'
 
 TAB 	- Switch between normal and alpha mode. 
 	   Edit the alpha channel of a texture using grayscale values
